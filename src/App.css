@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
 .App {
   text-align: center;
 }
@@ -36,3 +38,71 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar-header, .navbar-home {
+  font-size: calc(6px);
+  padding-left: 10vmin;
+}
+
+
+.navbar-home {
+  padding-left: 16px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  min-width: 100vh;
+  background-color:  #0C825F;
+  box-shadow: 0em 0em .2em 1px gray;
+  max-height: 8vh;
+}
+
+.navbar {
+  float: right;
+  font-size: calc(1px + 2vmin);
+}
+
+.navbar-right{
+  float: right;
+  padding-right: 10vmin;
+}
+
+li {
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 8vh;
+}
+
+li a {
+  padding: 10px;
+  text-decoration: none;
+  font-size: medium;
+  color: white;
+}
+/*
+li a:visited {
+  font-weight: bold;
+  color: #4f4f4f;
+}
+*/
+.navbar:hover {
+  background-color: #b5b5b5;
+  border-radius: 10px 10px 5px 5px;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48;
+  color: white;
+}
+
+

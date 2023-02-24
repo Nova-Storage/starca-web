@@ -1,8 +1,8 @@
-import logo from './favicon.png';
+import logo from './images/white-logo.png';
 import './App.css';
 import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Profile from './components/Profile.js';
-
+import Conversations from './components/Conversations.js';
 
 function App() {
   /*
@@ -25,7 +25,8 @@ function App() {
     </div>
   );*/
   
-  const username = "John"
+  const firstName = "John"
+  const lastName = "Doe"
   const email = "johndoe@email.com"
   return (
       <div className="App">
@@ -34,26 +35,28 @@ function App() {
             <nav>
               <ul>
                 <li className="navbar-header">
-                  <Link to="/"><img src={ logo } width="50px" height="50px"/></Link>
+                  <Link to="/"><img src={ logo } width="160px" max_height="auto"/></Link>
+                </li>
+                <li className="navbar-right">
+                  <span className="material-symbols-outlined">
+                  menu
+                  </span>
                 </li>
                 <li className="navbar">
-                  <Link to="/profile">{ username }</Link>
+                  <Link to="/profile">{ firstName }</Link>
                 </li>
                 <li className="navbar">
-                  <Link to="/profile">My List</Link>
-                </li>
-                <li className="navbar">
-                  <Link to="/profile">Rentals</Link>
+                  <Link to="/conversations">Messages</Link>
                 </li>
               </ul>
             </nav>
             
             <Switch>
               <Route path="/profile">
-                <Profile email={email} />
+                <Profile email={email} firstName={firstName} lastName={lastName} />
               </Route>
-              <Route path="/profile">
-                <Profile email={email} />
+              <Route path="/conversations">
+                <Conversations email={email} />
               </Route>
             </Switch>
           </div>
