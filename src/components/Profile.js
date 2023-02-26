@@ -1,6 +1,6 @@
 import './Profile.css';
-//import React, { useState, useEffect } from 'react';
-//import { MdEdit } from 'react-icons/md';
+import React, { useState, useEffect } from 'react';
+import { MdEdit } from 'react-icons/md';
 //import { IconContext } from "react-icons";
 //import BioInput from './BioInput.js';
 

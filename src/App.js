@@ -1,8 +1,11 @@
 import logo from './images/white-logo.png';
 import './App.css';
+import { CgProfile } from 'react-icons/cg';
+import { MdMenu } from 'react-icons/md';
 import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Profile from './components/Profile.js';
 import Conversations from './components/Conversations.js';
+import Login from './components/Login.js';
 
 function App() {
   /*
@@ -25,6 +28,11 @@ function App() {
     </div>
   );*/
   
+  function displayMenu(){
+        //setEditBio(true);
+        //TODO
+    }
+  
   const firstName = "John"
   const lastName = "Doe"
   const email = "johndoe@email.com"
@@ -38,9 +46,13 @@ function App() {
                   <Link to="/"><img src={ logo } width="160px" max_height="auto"/></Link>
                 </li>
                 <li className="navbar-right">
-                  <span className="material-symbols-outlined">
-                  menu
-                  </span>
+                  <MdMenu onClick={ displayMenu } size={22} />
+                </li>
+                <li className="navbar">
+                  <Link to="/login">Login</Link>
+                </li>
+                <li className="navbar-icons">
+                  <CgProfile onClick={ displayMenu } size={22}/>
                 </li>
                 <li className="navbar">
                   <Link to="/profile">{ firstName }</Link>
@@ -57,6 +69,9 @@ function App() {
               </Route>
               <Route path="/conversations">
                 <Conversations email={email} />
+              </Route>
+              <Route path="/login">
+                <Login />
               </Route>
             </Switch>
           </div>
