@@ -6,6 +6,7 @@ import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Profile from './components/Profile.js';
 import Conversations from './components/Conversations.js';
 import Login from './components/Login.js';
+import SearchResults from './components/SearchResults';
 
 function App() {
   /*
@@ -57,6 +58,9 @@ function App() {
                 <li className="navbar">
                   <Link to="/profile">{ firstName }</Link>
                 </li>
+                <li classname="navbar">
+                  <Link to="/SearchResults">Search Results</Link>
+                </li>
                 <li className="navbar">
                   <Link to="/conversations">Messages</Link>
                 </li>
@@ -72,6 +76,9 @@ function App() {
               </Route>
               <Route path="/login">
                 <Login />
+              </Route>
+              <Route path="/SearchResults">
+                <SearchResults />
               </Route>
             </Switch>
           </div>
