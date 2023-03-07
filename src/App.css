@@ -40,6 +40,7 @@
 .navbar-header, .navbar-home {
   font-size: calc(6px);
   padding-left: 10vmin;
+  float: left;
 }
 
 
@@ -47,7 +48,7 @@
   padding-left: 16px;
 }
 
-ul {
+.navbar-ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -78,11 +79,10 @@ ul {
 }
 
 li {
-  float: left;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  min-height: 8vh;
+  min-height: 6vh;
+  align-items: center;
 }
 
 li a {
@@ -92,14 +92,9 @@ li a {
   color: white;
 }
 /*
-li a:visited {
-  font-weight: bold;
-  color: #4f4f4f;
+.navbar:hover {
+  background-color: #b5b5b540;
+  border-radius: 20px 20px 5px 5px;
 }
 */
-.navbar:hover {
-  background-color: #b5b5b5;
-  border-radius: 10px 10px 5px 5px;
-}
-
 
