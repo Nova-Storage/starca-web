@@ -4,7 +4,7 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
   const containerStyle = {
     width: '400px',
-    height: '400px'
+    height: '400px',
   };
   
   const center = {
@@ -37,6 +37,7 @@ function SearchResults() {
             center={center}
             zoom={10}
             onLoad={onLoad}
+            options={{ mapId: `${process.env.REACT_APP_MAP_ID}`}}
             onUnmount={onUnmount}
           >
             { /* Child components, such as markers, info windows, etc. */ }
