@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Profile from './components/Profile.js';
 import Conversations from './components/Conversations.js';
 import Login from './components/Login.js';
+import Register from './components/Register.js';
 import AccountMenu from './components/AccountMenu.js';
 
 function App() {
@@ -78,6 +79,8 @@ function App() {
               <Route path="/conversations" element={<Conversations email={email} />}>
               </Route>
               <Route exact path="/login" element={<Login authenticated={authenticated} />}>
+              </Route>
+              <Route path="/register" element={<Register />}>
               </Route>
             </Routes>
           </div>

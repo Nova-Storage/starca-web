@@ -2,36 +2,8 @@ import './Login.css';
 import React, { useCallback } from 'react'
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-
-const LoginTextField = styled(TextField)(({ theme }) => ({
-  width: 300,
-  "& label.Mui-focused": {
-    color: "#0C825F"
-  },
-  "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "gray"
-      },
-      "&:hover fieldset": {
-        borderColor: "gray"
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#0C825F"
-      }
-    },
-  margin: 10,
-  }));
-  
-const LoginButton = styled(Button)(({ theme }) => ({
-  width: 300,
-  background: '#0C825F',
-  '&:hover': {
-       background: "#027251",
-    },
-  margin: 10,
-  }));
+import { StyledButton, LoginTextField} from './StyledMuiComponents.js';
   
 function Login(props) {
   
@@ -43,6 +15,11 @@ function Login(props) {
     // Stop the form from refreshing the page which would create infinite refreshing
     event.preventDefault();
   };
+  
+  const handleSignUp = event => {
+    navigate('/register');
+    event.preventDefault();
+  }
   
   return (
       <div>
@@ -60,8 +37,9 @@ function Login(props) {
                 </td>
               </tr>
             </table>
-            <LoginButton type="submit" variant="contained">Login</LoginButton>
+            <StyledButton type="submit" variant="contained">Login</StyledButton>
           </form>
+          <p>Don't have an account yet? <a className="register-link" onClick={handleSignUp}>Sign up</a></p>
       </div>);
 }
 

@@ -8,6 +8,14 @@
     box-sizing: border-box;
 }
 
+.register-link {
+    color: #0C825F;
+}
+
+.register-link:hover {
+    cursor: pointer;
+}
+
 table {
     margin: auto;
     
