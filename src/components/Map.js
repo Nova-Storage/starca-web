@@ -1,5 +1,9 @@
 import React, {useState} from 'react'
-import { GoogleMap, useJsApiLoader, Autocomplete } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import usePlacesAutocomplete, {
+  getGeocode, 
+  getLatLng
+} from "use-places-autocomplete"
 import { CircularProgress } from '@mui/material';
 
   // Styling for the map
@@ -10,7 +14,6 @@ import { CircularProgress } from '@mui/material';
     overflow: 'hidden',
     marginTop: '1%',
     borderRadius: '10px',
-    // marginBottom: '3vmin',
     marginLeft: '2vmin',
     border: '1px solid black'
   };
@@ -22,6 +25,12 @@ import { CircularProgress } from '@mui/material';
     mapTypeControl:false,
     fullscreenControl: false,
   }
+
+  const options = {
+    fields: ["formatted_address", "geometry", "name"],
+    strictBounds: false,
+    types: ["cities"],
+  };
   
 function Map({center}) {
 
@@ -51,16 +60,25 @@ function Map({center}) {
 
       <GoogleMap 
         center={center} 
-        zoom={15} 
+        zoom={13} 
         mapContainerStyle={containerStyle}
-        options={mapOptions}
-        onLoad={(map) => setMap(map)}>
+        options={mapOptions}>
 
         {/* Display markers, etc. */}
 
       </GoogleMap>
     </div>
   )
+}
+
+const PlacesAutoComplete = ({ }) => {
+  const {
+    ready,
+    value,
+    setValue,
+    suggestions: {status, data},
+    clearSuggestions
+  } = usePlacesAutocomplete()
 }
 
 export default React.memo(Map);
