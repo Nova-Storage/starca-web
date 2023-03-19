@@ -3,10 +3,11 @@ import './App.css';
 import React, { useState } from "react";
 import { CgProfile } from 'react-icons/cg';
 import { MdMenu } from 'react-icons/md';
-import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Profile from './components/Profile.js';
 import Conversations from './components/Conversations.js';
 import Login from './components/Login.js';
+import Register from './components/Register.js';
 import AccountMenu from './components/AccountMenu.js';
 
 function App() {
@@ -15,7 +16,10 @@ function App() {
   
   function authenticated(){
     setIsLoggedIn(!isLoggedIn);
+    console.log("inside authenticated" + isLoggedIn);
   }
+  
+  console.log("outside authenticated" + isLoggedIn);
   
   const firstName = "John"
   const lastName = "Doe"
@@ -40,17 +44,14 @@ function App() {
               </ul>
             </nav>
             
-            <Switch>
-              <Route path="/profile">
-                <Profile email={email} firstName={firstName} lastName={lastName} />
+            <Routes>
+              <Route exact path="/profile" element={<Profile email={email} firstName={firstName} lastName={lastName} />}>
               </Route>
-              <Route path="/conversations">
-                <Conversations email={email} />
+              <Route exact path="/conversations" element={<Conversations email={email}/>}>
               </Route>
-              <Route path="/login">
-                <Login authenticated={authenticated}/>
+              <Route exact path="/login" element={<Login authenticated={authenticated}/>}>
               </Route>
-            </Switch>
+            </Routes>
           </div>
         </Router>
       </div>
@@ -72,17 +73,16 @@ function App() {
               </ul>
             </nav>
             
-            <Switch>
-              <Route path="/profile">
-                <Profile email={email} firstName={firstName} lastName={lastName} />
+            <Routes>
+              <Route path="/profile" element={<Profile email={email} firstName={firstName} lastName={lastName} />}>
               </Route>
-              <Route path="/conversations">
-                <Conversations email={email} />
+              <Route path="/conversations" element={<Conversations email={email} />}>
               </Route>
-              <Route path="/login">
-                <Login authenticated={authenticated} />
+              <Route exact path="/login" element={<Login authenticated={authenticated} />}>
               </Route>
-            </Switch>
+              <Route path="/register" element={<Register />}>
+              </Route>
+            </Routes>
           </div>
         </Router>
       </div>
