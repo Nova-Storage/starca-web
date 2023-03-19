@@ -1,10 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import usePlacesAutocomplete, {
-  getGeocode, 
-  getLatLng
-} from "use-places-autocomplete"
 import { CircularProgress } from '@mui/material';
+
+  // Google Map API Libraries to be included. Defined here for performance reasons
+  const lib = ['places']
 
   // Styling for the map
   const containerStyle = {
@@ -26,21 +25,14 @@ import { CircularProgress } from '@mui/material';
     fullscreenControl: false,
   }
 
-  const options = {
-    fields: ["formatted_address", "geometry", "name"],
-    strictBounds: false,
-    types: ["cities"],
-  };
-  
+// Map component. Takes a center location as a prop. Displays a Google Map centered at 'center'
 function Map({center}) {
 
   // Load the Google Map using the useJsApiLoader hook
   const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: `${process.env.REACT_APP_MAPS_API_KEY}`,
-    libraries: ['places']
+    libraries: lib
   })
-
-  const [map, setMap] = useState(null)
 
   // If the map is still being loaded, display a progress bar
   if (!isLoaded) {
@@ -51,34 +43,14 @@ function Map({center}) {
   return (
 
     <div className='map'>
-
-      {/* How to get auto complete for searching for input fields. Just wrap the input
-      in the <Autocomplete> component */}
-      {/* <Autocomplete>
-        <input type='text'></input>
-      </Autocomplete> */}
-
       <GoogleMap 
         center={center} 
         zoom={13} 
         mapContainerStyle={containerStyle}
         options={mapOptions}>
-
-        {/* Display markers, etc. */}
-
       </GoogleMap>
     </div>
   )
-}
-
-const PlacesAutoComplete = ({ }) => {
-  const {
-    ready,
-    value,
-    setValue,
-    suggestions: {status, data},
-    clearSuggestions
-  } = usePlacesAutocomplete()
 }
 
 export default React.memo(Map);

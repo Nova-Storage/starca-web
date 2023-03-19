@@ -1,21 +1,30 @@
 import './Dashboard.css';
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Map from './Map.js'
-import { GoogleMap, useJsApiLoader, Autocomplete, LoadScript } from '@react-google-maps/api';
 import { Switch } from '@mui/material';
   
 function Dashboard() {
 
-  const center = {
+  const [showMap, setShowMap] = useState(true)
+  const [mapCenter, setCenter] = useState({
     lat: 40.7484,
     lng: -73.9857
-  }
+  })
 
-  const [showMap, setShowMap] = useState(true)
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+
+      setCenter({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      })
+    })
+    }, [])
 
   const toggleMap = () => {
     setShowMap(!showMap)
   }
+  console.log(mapCenter)
 
   if (!showMap) {
     return (
@@ -34,7 +43,7 @@ function Dashboard() {
           checked={showMap}
           onChange={toggleMap}
         />
-          <Map center={center}/>
+          <Map center={mapCenter}/>
       </div>
       )
     }
