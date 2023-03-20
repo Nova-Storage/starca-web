@@ -10,15 +10,16 @@ Geocode.setLocationType("ROOFTOP");
 
 function Dashboard() {
 
+  // State Handler for the center and the Google Map
   const [showMap, setShowMap] = useState(true)
   const [mapCenter, setCenter] = useState({
     lat: 40.7484,
     lng: -73.9857
   })
 
-  function setCoords(place) {
+  // Function to get the Lat and Lng from an address.
+  function getCoords(place) {
     Geocode.fromAddress(place.formatted_address).then( (response) => {
-
       setCenter({
         lat: response.results[0].geometry.location.lat,
         lng: response.results[0].geometry.location.lng
@@ -29,13 +30,13 @@ function Dashboard() {
     })
   }
 
+  // Search Box Autocomplete options
   const searchOptions = {
-    componentRestriction: {
-      country: 'us'
-    },
-    types: ['(regions)']
+    types: ["(regions)"],
+    componentRestrictions: { country: "us" },
   }
 
+  // Hook that updates the map when center is updated.
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
 
@@ -46,6 +47,7 @@ function Dashboard() {
     })
     }, [])
 
+  // Toggle whether the map is visible.
   const toggleMap = () => {
     setShowMap(!showMap)
   }
@@ -70,10 +72,7 @@ function Dashboard() {
         <Autocomplete   
           apiKey={`${process.env.REACT_APP_MAP_ID}`}
           options={searchOptions}
-          onPlaceSelected={(place) => {
-            setCenter(setCoords(place))
-            console.log(mapCenter)
-            }}> 
+          onPlaceSelected={(place) => {setCenter(getCoords(place))}}> 
         </Autocomplete>
           <Map center={mapCenter}/>
       </div>
