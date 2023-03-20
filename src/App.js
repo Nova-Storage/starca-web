@@ -8,6 +8,7 @@ import Profile from './components/Profile.js';
 import Conversations from './components/Conversations.js';
 import Login from './components/Login.js';
 import AccountMenu from './components/AccountMenu.js';
+import Dashboard from './components/Dashboard';
 
 function App() {
   
@@ -81,6 +82,9 @@ function App() {
               </Route>
               <Route path="/login">
                 <Login authenticated={authenticated} />
+              </Route>
+              <Route path="/dashboard">
+                <Dashboard />
               </Route>
             </Switch>
           </div>
