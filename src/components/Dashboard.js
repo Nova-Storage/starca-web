@@ -19,6 +19,7 @@ function Dashboard() {
 
   // Function to get the Lat and Lng from an address.
   function getCoords(place) {
+    console.log(place.place_id)
     Geocode.fromAddress(place.formatted_address).then( (response) => {
       setCenter({
         lat: response.results[0].geometry.location.lat,

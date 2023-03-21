@@ -17,12 +17,22 @@ import { CircularProgress } from '@mui/material';
     border: '1px solid black'
   };
 
+  const US_BOUNDS = {
+    north: 49.382808,
+    south: 24.521208,
+    west: -124.736342,
+    east: -66.945392
+  }
+
   // Map Options. Disable various UI elements (PoI, map types, etc.)
   const mapOptions = {
     mapId: `${process.env.REACT_APP_MAP_ID}`,
     streetViewControl: false,
     mapTypeControl:false,
     fullscreenControl: false,
+    feature: {
+      placeidId: "ChIJuXAqFCUAw4kRNDvR1irBWyc"
+    }
   }
 
 // Map component. Takes a center location as a prop. Displays a Google Map centered at 'center'
@@ -44,7 +54,11 @@ function Map({center}) {
 
     <div className='map'>
       <GoogleMap 
-        center={center} 
+        center={center}
+        restrictions={{
+          latlngBounds: US_BOUNDS,
+          strictBounds: true
+        }}
         zoom={13} 
         mapContainerStyle={containerStyle}
         options={mapOptions}>
