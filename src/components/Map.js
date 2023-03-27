@@ -38,9 +38,6 @@ const mapOptions = {
   streetViewControl: false,
   mapTypeControl:false,
   fullscreenControl: false,
-  feature: {
-    placeId: "ChIJuXAqFCUAw4kRNDvR1irBWyc"
-  }
 }
 
 const lineOptions = {
@@ -56,22 +53,6 @@ const lineOptions = {
   zIndex: 1
 }
 
-// Need to get the zip code from the lat lng if they search for a city name
-function getZipFromLatLng(lat, lng) {
-  Geocode.fromLatLng(lat, lng).then( 
-    (response) => {
-      for (var i = 0; i < response.results[0].address_components.length; i++) {
-        if (response.results[0].address_components[i].types.includes('postal_code')) {
-          return response.results[0].address_components[i].long_name
-          console.log("you are here")
-        }
-      }
-  },
-  (error) => {
-    console.error(error)
-  })
-}
-
 // Map component. Takes a center location as a prop. Displays a Google Map centered at 'center'
 // function Map({center}) {
 function Map() {
@@ -82,7 +63,49 @@ function Map() {
   })
 
   const [zipCode, setZipCode] = useState('')
-  const [paths, setPaths] = []
+  const [state, setState] = useState()
+
+  const [paths, setPaths] = useState([])
+
+  // Need to parse the searched area to extract the state. Update the state variable.
+function setStateFromSearch(place) {
+  for (var i = place.address_components.length - 1; i >= 0; i--) {
+    if (place.address_components[i].types.includes('administrative_area_level_1')) {
+      let s = place.address_components[i].long_name
+      s = s.toLowerCase()
+      s = s.replace(/ /g, "_")
+      setState(s)
+      break;
+    }
+  }
+}
+
+function getPaths() {
+  let requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({zipCode: `${zipCode}`, state: `${state}`})
+  }
+  fetch(`${process.env.REACT_APP_BOUNDARY_ENDPOINT}`, requestOptions)
+    .then(response => response.json())
+    .then(data => console.log(data))
+}
+  // Need to get the zip code from the lat lng if they search for a city name
+function setZipFromLatLng(lat, lng) {
+  Geocode.fromLatLng(lat, lng).then( 
+    (response) => {
+
+      for (var i = response.results[0].address_components.length-1; i >= 0; i--) {
+        if (response.results[0].address_components[i].types.includes('postal_code')) {
+          setZipCode(response.results[0].address_components[i].long_name)
+          break;
+        }
+      }
+  },
+  (error) => {
+    console.error(error)
+  })
+}
 
   // Function to get the latitude and longitude of a place and recenter the map to that location.
   function getCoords(place) {
@@ -100,16 +123,12 @@ function Map() {
   // Update the zip code for the new map center.
   useEffect(() => {
     if (mapCenter !== undefined) {
-      console.log("updating zip code")
-      setZipCode(() => getZipFromLatLng(mapCenter.lat, mapCenter.lng))
+      setZipFromLatLng(mapCenter.lat, mapCenter.lng)
     }
   }, [mapCenter])
 
   useEffect(() => {
-    console.log(zipCode)
   }, [zipCode])
-
-  let test = require(`./stateZIPs/new_jersey.json`)
   
   // Hook that updates the map center to be current location. Happens only on initial render.
   useEffect(() => {
@@ -118,22 +137,10 @@ function Map() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       })
-      setZipCode(getZipFromLatLng(position.coords.latitude, position.coords.longitude))
+
+      // setZipFromLatLng(position.coords.latitude, position.coords.longitude)
     })
   }, [])
-
-      // const test2 = test.features.find(element => element.properties.ZCTA5CE10 === `${zipCode}`)
-    // for (var i = 0; i < test2.geometry.coordinates[0].length; i++) {
-    //   paths.push({
-    //     lat: test2.geometry.coordinates[0][i][1],
-    //     lng: test2.geometry.coordinates[0][i][0]
-    //   })
-    // }
-
-  // useEffect(() => {
-  //   setZipCode(getZipFromLatLng(mapCenter.lat, mapCenter.lng))
-  //   console.log(mapCenter.lat, mapCenter.lng)
-  // }, [mapCenter.lat, mapCenter.lng])
 
   // Load the Google Map using the useJsApiLoader hook
   const {isLoaded} = useJsApiLoader({
@@ -155,7 +162,10 @@ function Map() {
           apiKey={`${process.env.REACT_APP_MAP_ID}`}
           options={searchOptions}
           onPlaceSelected={(place) => {
-            setCenter(getCoords(place))}
+            setCenter(() => getCoords(place))
+            setStateFromSearch(place)
+            getPaths()
+          }
             }> 
         </Autocomplete>
       <GoogleMap 
