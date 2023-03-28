@@ -8,10 +8,6 @@ import { StyledButton, LoginTextField} from './StyledMuiComponents.js';
 function Login(props) {
   
   /*
-  fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(json => console.log(json))*/
-  /*
   useEffect (() => {
     
        fetch('https://jsonplaceholder.typicode.com/todos/1', {
@@ -23,13 +19,6 @@ function Login(props) {
   });*/
   
   const navigate = useNavigate();
-  const handleSubmit = event => {
-    //TODO: Call server to check if user exists and retreive their info
-    props.authenticated();
-    navigate('/');
-    // Stop the form from refreshing the page which would create infinite refreshing
-    event.preventDefault();
-  };
   
   const handleSignUp = event => {
     navigate('/register');
@@ -56,20 +45,19 @@ function Login(props) {
         console.log(json)
         // Get the user's information if authenticated successfully
         if (json === "You Logged in.!"){
-          props.authenticated()
+          props.authenticated();
+          navigate('/');
+        }
+        else {
+          //TODO: Make input fields red
         }
       })
       .catch(error => console.log(error));
-      event.preventDefault();
+      //TODO: Get user's info in a state varibale
       //.then((result) => setData(result.rows))
       
-      
-      /*
-      fetch('https://starcaserver.com/')
-      .then((response) => response.text())
-      .then((text) => console.log(text));
+      // Stop the form from refreshing the page which would create infinite refreshing
       event.preventDefault();
-      */
   };
   
   return (
