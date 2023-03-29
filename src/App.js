@@ -16,10 +16,7 @@ function App() {
   
   function authenticated(){
     setIsLoggedIn(!isLoggedIn);
-    console.log("inside authenticated" + isLoggedIn);
   }
-  
-  console.log("outside authenticated" + isLoggedIn);
   
   const firstName = "John"
   const lastName = "Doe"

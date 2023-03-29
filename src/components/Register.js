@@ -7,27 +7,54 @@ import { StyledButton, LoginTextField } from './StyledMuiComponents.js'
 function Register(props) {
   
   const navigate = useNavigate();
-  const handleSubmit = event => {
-    //TODO: Call server to create a new account
-    navigate('/login');
-    // Stop the form from refreshing the page which would create infinite refreshing
-    event.preventDefault();
+  
+  const handleRegisterSubmit = event => {
+    
+    console.log(event.target.email.value);
+    console.log(event.target.password.value);
+    
+    fetch('https://starcaserver.com/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: event.target.email.value,
+        passwrd: event.target.password.value,
+        confirmPassword: event.target.confirm_password.value,
+        fname: event.target.first_name.value,
+        lname: event.target.last_name.value,
+        phnum: event.target.phone_number.value
+      })
+    })
+      .then(res => res.text()) //Change from text to json
+      .then(json => {
+        console.log(json)
+        // Get the user's information if authenticated successfully
+        if (json === "You have successfully registered!"){
+          navigate('/login');
+        }
+      })
+      .catch(error => console.log(error));
+      
+      event.preventDefault();
+      //.then((result) => setData(result.rows))
   };
   
   return (
       <div>
           <h1>Register</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleRegisterSubmit}>
             <table>
                 <tbody>
                   <tr>
                     <td>
-                    <LoginTextField id="first-name" label="First Name" variant="outlined" />
+                    <LoginTextField id="first_name" label="First Name" variant="outlined" />
                     </td>
                   </tr>
                   <tr>
                     <td>
-                    <LoginTextField id="last-name" label="Last Name" variant="outlined" />
+                    <LoginTextField id="last_name" label="Last Name" variant="outlined" />
                     </td>
                   </tr>
                   <tr>
@@ -37,7 +64,7 @@ function Register(props) {
                   </tr>
                   <tr>
                     <td>
-                    <LoginTextField id="phone-number" label="Phone Number" variant="outlined" />
+                    <LoginTextField id="phone_number" label="Phone Number" variant="outlined" />
                     </td>
                   </tr>
                   <tr>
@@ -47,7 +74,7 @@ function Register(props) {
                   </tr>
                   <tr>
                     <td>
-                    <LoginTextField id="confirm-password" label="Confirm Password" variant="outlined" />
+                    <LoginTextField id="confirm_password" label="Confirm Password" variant="outlined" />
                     </td>
                   </tr>
                 </tbody>
