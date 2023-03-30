@@ -10,6 +10,7 @@ import Login from './components/Login.js';
 import Register from './components/Register.js';
 import AccountMenu from './components/AccountMenu.js';
 import Dashboard from './components/Dashboard';
+import Listings from './components/Listings.js';
 
 function App() {
   
@@ -48,6 +49,8 @@ function App() {
               <Route exact path="/conversations" element={<Conversations email={email}/>}>
               </Route>
               <Route exact path="/login" element={<Login authenticated={authenticated}/>}>
+              </Route>
+              <Route exact path="/account" element={<Listings />}>
               </Route>
             </Routes>
           </div>
