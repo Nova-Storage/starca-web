@@ -14,6 +14,8 @@ import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
+import {useNavigate} from 'react-router-dom';
+
 export default function AccountMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -27,7 +29,14 @@ export default function AccountMenu(props) {
   const handleLogout = () => {
     setAnchorEl(null);
     props.authenticated();
+    navigate('/');
   };
+  
+  const navigate = useNavigate();
+  const handleProfileClick = () => {
+    handleClose()
+    navigate('/profile');
+  }
   
   return (
     <React.Fragment>
@@ -80,7 +89,7 @@ export default function AccountMenu(props) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleProfileClick}>
           <Avatar /> Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>

@@ -2,7 +2,8 @@
 Starca is a storage marketplace that allows users to list their unused space to make extra income or look for storage listings so they can store their extraneous items.
 
 ## Set up
-```npm install```
+```npm install
+   npm start```
 
 ## Requirements
 1. npm
