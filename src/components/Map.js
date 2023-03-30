@@ -63,7 +63,7 @@ function Map() {
   })
 
   const [zipCode, setZipCode] = useState('')
-  const [state, setState] = useState()
+  const [state, setState] = useState('')
 
   const [paths, setPaths] = useState([])
 
@@ -81,14 +81,22 @@ function setStateFromSearch(place) {
 }
 
 function getPaths() {
-  let requestOptions = {
+  fetch('https://starcaserver.com/boundary', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({zipCode: `${zipCode}`, state: `${state}`})
-  }
-  fetch(`${process.env.REACT_APP_BOUNDARY_ENDPOINT}`, requestOptions)
-    .then(response => response.json())
-    .then(data => console.log(data))
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      zipCode: `${zipCode}`, state: `${state}`
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      // console.log(data)
+      setPaths(data)
+      console.log(paths)
+    })
+    .catch((error) => console.error("Error:", error))
 }
   // Need to get the zip code from the lat lng if they search for a city name
 function setZipFromLatLng(lat, lng) {
@@ -128,7 +136,8 @@ function setZipFromLatLng(lat, lng) {
   }, [mapCenter])
 
   useEffect(() => {
-  }, [zipCode])
+    getPaths()
+  }, [zipCode, state])
   
   // Hook that updates the map center to be current location. Happens only on initial render.
   useEffect(() => {
@@ -138,7 +147,7 @@ function setZipFromLatLng(lat, lng) {
         lng: position.coords.longitude
       })
 
-      // setZipFromLatLng(position.coords.latitude, position.coords.longitude)
+      setZipFromLatLng(position.coords.latitude, position.coords.longitude)
     })
   }, [])
 
@@ -164,7 +173,6 @@ function setZipFromLatLng(lat, lng) {
           onPlaceSelected={(place) => {
             setCenter(() => getCoords(place))
             setStateFromSearch(place)
-            getPaths()
           }
             }> 
         </Autocomplete>
@@ -176,11 +184,12 @@ function setZipFromLatLng(lat, lng) {
         version="beta"
         // onCenterChanged={() => setZipCode}
         >
-          {/* <Polygon
+          <Polygon
             paths={paths}
+            editable={true}
             options={lineOptions}
             visible={true}
-          /> */}
+          />
       </GoogleMap>
     </div>
   )
