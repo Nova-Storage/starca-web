@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react'
 import Map from './Map.js'
 import { Switch } from '@mui/material';
 import Geocode from 'react-geocode'
+import Listings from './Listings.js';
 
 Geocode.setApiKey(`${process.env.REACT_APP_MAPS_API_KEY}`)
 Geocode.setLocationType("ROOFTOP");
@@ -34,6 +35,7 @@ function Dashboard() {
           checked={showMap}
           onChange={toggleMap}
         />
+        <div className="grid-map-listings-columns">
         {/* <Autocomplete   
           apiKey={`${process.env.REACT_APP_MAP_ID}`}
           options={searchOptions}
@@ -41,6 +43,8 @@ function Dashboard() {
         </Autocomplete> */}
           {/* <Map center={mapCenter}/> */}
           <Map />
+          <Listings />
+        </div>
       </div>
       )
     }

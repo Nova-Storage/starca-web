@@ -38,6 +38,11 @@ export default function AccountMenu(props) {
     navigate('/profile');
   }
   
+  const handleAccountClick = () => {
+    handleClose()
+    navigate('/account');
+  }
+  
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -92,7 +97,7 @@ export default function AccountMenu(props) {
         <MenuItem onClick={handleProfileClick}>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleAccountClick}>
           <Avatar /> Account
         </MenuItem>
         <Divider />

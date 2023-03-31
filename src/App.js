@@ -10,6 +10,8 @@ import Login from './components/Login.js';
 import Register from './components/Register.js';
 import AccountMenu from './components/AccountMenu.js';
 import Dashboard from './components/Dashboard';
+import Listings from './components/Listings.js';
+import ListingDetail from './components/ListingDetail.js';
 
 function App() {
   
@@ -43,11 +45,17 @@ function App() {
             </nav>
             
             <Routes>
+              <Route exact path="/" element={<Dashboard />}>
+              </Route>
               <Route exact path="/profile" element={<Profile email={email} firstName={firstName} lastName={lastName} />}>
               </Route>
               <Route exact path="/conversations" element={<Conversations email={email}/>}>
               </Route>
               <Route exact path="/login" element={<Login authenticated={authenticated}/>}>
+              </Route>
+              <Route exact path="/account" element={<Listings />}>
+              </Route>
+              <Route exact path="/detail" element={<ListingDetail />}>
               </Route>
             </Routes>
           </div>
@@ -72,6 +80,8 @@ function App() {
             </nav>
             
             <Routes>
+              <Route exact path="/" element={<Dashboard />}>
+              </Route>
               <Route path="/profile" element={<Profile email={email} firstName={firstName} lastName={lastName} />}>
               </Route>
               <Route path="/conversations" element={<Conversations email={email} />}>
