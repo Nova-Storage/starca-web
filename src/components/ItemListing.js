@@ -37,41 +37,6 @@ function ItemListing(props) {
           </CardActionArea>
         </Card>
       );
-        
-        
-    /*
-    return (
-        <div id="page_body">
-            <table id="listing" data-testid="listing">
-                <thead>
-                    <tr className="header-row">
-                        <td><p>Symbol</p></td>
-                        <td><p>Company</p></td>
-                        <td><p>High</p></td>
-                        <td><p>Low</p></td>
-                        <td><p>Price</p></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {listings.map((stock) => {
-                        return (
-                            <tr id={stock.Symbol} className="border_bottom">
-                                {headers.map((header) => (
-                                    <td onClick={() => onRowClick(stock.Symbol)}>{stock[header]}</td>
-                                ))}
-                                <Like
-                                    symbol={stock.Symbol}
-                                    email={props.email}
-                                    likedStocks={props.likedStocks}
-                                    setLikedStocks={props.setLikedStocks} 
-                                    totalLikes={stock.Likes} />
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </div>
-    )*/
 }
     
 
