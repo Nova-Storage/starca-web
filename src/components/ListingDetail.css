@@ -32,7 +32,7 @@ h3, p {
     margin: 2vmin;
     display: grid;
     gap: 1rem;
-    grid-template-columns: 40% 1fr;
+    grid-template-columns: 1fr 1fr;
 }
 
 .grid-inner-columns {

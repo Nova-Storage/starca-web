@@ -45,6 +45,8 @@ function App() {
             </nav>
             
             <Routes>
+              <Route exact path="/" element={<Dashboard />}>
+              </Route>
               <Route exact path="/profile" element={<Profile email={email} firstName={firstName} lastName={lastName} />}>
               </Route>
               <Route exact path="/conversations" element={<Conversations email={email}/>}>
@@ -78,6 +80,8 @@ function App() {
             </nav>
             
             <Routes>
+              <Route exact path="/" element={<Dashboard />}>
+              </Route>
               <Route path="/profile" element={<Profile email={email} firstName={firstName} lastName={lastName} />}>
               </Route>
               <Route path="/conversations" element={<Conversations email={email} />}>
