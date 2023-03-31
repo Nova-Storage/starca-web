@@ -9,6 +9,7 @@ import Conversations from './components/Conversations.js';
 import Login from './components/Login.js';
 import Register from './components/Register.js';
 import AccountMenu from './components/AccountMenu.js';
+import Dashboard from './components/Dashboard';
 
 function App() {
   
