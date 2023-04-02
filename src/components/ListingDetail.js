@@ -5,6 +5,7 @@ import StorageUnitOutline from '../images/StorageUnitOutline.jpg';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { useState } from  'react';
+import { StyledButton } from './StyledMuiComponents.js';
 
 function ListingDetail(props) {
     
@@ -15,32 +16,32 @@ function ListingDetail(props) {
     
     return (
         <div className="grid-even-columns">
-            <div>
-                <h3> {listingTitle} </h3>
-                <p> { listingCity }, { listingState }</p>
-                <div className="grid-inner-columns">
-                  <ImageList sx={{ width: 150, height: 300, margin: 0}} cols={1} rowHeight={105}>
-                    {itemData.map((item) => (
-                      <ImageListItem key={item.img}>
-                        <img
-                          src={`${item.img}?w=100&h=100&fit=crop&auto=format`}
-                          srcSet={`${item.img}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
-                          alt={item.title}
-                          loading="lazy"
-                        />
-                      </ImageListItem>
-                    ))}
-                  </ImageList>
-                  <CardMedia
-                    component="img"
-                    height="300"
-                    image={ image }
-                    alt="storage unit outline"
+            <ImageList sx={{ width: 150, height: 300, margin: 0}} cols={1} rowHeight={105}>
+              {itemData.map((item) => (
+                <ImageListItem key={item.img}>
+                  <img
+                    src={`${item.img}?w=100&h=100&fit=crop&auto=format`}
+                    srcSet={`${item.img}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.title}
+                    loading="lazy"
                   />
-                </div>
+                </ImageListItem>
+              ))}
+            </ImageList>
+            <div className="grid-inner-rows">
+              <h3> {listingTitle} </h3>
+              <p> { listingCity }, { listingState }</p>
+              <CardMedia
+                component="img"
+                height="300"
+                image={ image }
+                alt="storage unit outline"
+              />
             </div>
             <div>
               <h2> { listingPrice } </h2>
+              <StyledButton type="submit" variant="contained">Request Listing</StyledButton>
+              <p> { listingDescription } </p>
             </div>
         </div>
     );
