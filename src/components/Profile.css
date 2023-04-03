@@ -1,58 +1,222 @@
 .grid-container {
-    display: grid;
-    padding-left: 12vw;
-    padding-right: 12vw;
-    padding-top: 1vw;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 20vw 20vw auto;
-    grid-gap: 1vw
-    
+  display: grid;
+  padding-left: 12vw;
+  padding-right: 12vw;
+  padding-top: 1vw;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 50% 50%;
+  grid-gap: 1vw;
+  grid-row-gap: 2vw;
 }
 
-.personal, .favorites, .investor-preferences {
-    
-    padding-left: 1vw;
-    padding-right: 1vw;
-    border: 0.2vw solid lightgray;
-    border-radius: 10px;
-    box-shadow: .05em .05em .2em 1px gray;
+
+.favorites,
+.investor-preferences,
+
+.reviews {
+  padding: 1vw;
+  border: 0.2vw solid rgb(96, 96, 96);
+  border-radius: 15px;
+  box-shadow: 0.05em 0.05em 0.2em 1px gray;
 }
 
 .personal {
-    font-size: 1em;
-    grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1em;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+ height: 500px;
 }
 
-.favorites {
-    grid-column: 2;
-    grid-row: 1 / 3;
+.profile-picture {
+  width: 15vw;
+  height: 15vw;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 1vw;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.personal h2,
+.personal p {
+  text-align: center;
+}
+
+.slideshow {
+
+  padding-left: 1vw;
+  padding-right: 1vw;
+  
+  border-radius: 10px;
+  overflow: auto;
+  
+  margin-bottom: 3vw;
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  height: 300px;
+  border-radius: 0%;
+}
+
+.slideshow img {
+  width: 120%;
+  height: 300px;
+  object-fit: cover;
+  background-position: 0%;
+}
+
+.reviews {
+  width: 100%;
+  height: 100%;
+  position: flex;
+  grid-column: 2;
+  grid-row: 2;
+  height: 250px;
+  overflow: scroll;
 }
 
 .investor-preferences {
-    font-size: 1em;
+  font-size: 1em;
 }
 
 p {
-    font-size: 1.05em;
-    font-weight: 500;
+  font-size: 1.05em;
+  font-weight: 500;
 }
 
 .edit-icon {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .profile-title {
-    font-size: 2em;
-    background: -webkit-linear-gradient(#0C825F, #004d14);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  font-size: 2em;
+  background: linear-gradient(#0C825F, #004d14);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50vw;
+  border: #004d14;
+  grid-row: 1;
+  grid-column: 1/3;
 }
 
-.profile-sections {
-    font-size: 1.4em;
-    font-weight: bold;
-    background: -webkit-linear-gradient(#eee, #1a1a1a);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    border-bottom: 2px solid black;
+
+.edit-profile-button {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flexbox;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.popup-content h2 {
+  margin-top: 0;
+}
+
+.popup-content label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.popup-content input,
+.popup-content textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.popup-content textarea {
+  height: 100px;
+}
+
+.popup-content button {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dot-indicators {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  z-index: 1;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: green;
+}
+
+.review-listing-button {
+  position: flex;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: green;
+  border: 2px solid black;
+  cursor: pointer;
+}
+.star {
+  font-size: 1.5rem;
+}
+
+.full {
+  color: gold;
+}
+
+.empty {
+  color: lightgray;
 }
