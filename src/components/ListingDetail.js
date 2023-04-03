@@ -6,15 +6,17 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { useState } from  'react';
 import { StyledButton } from './StyledMuiComponents.js';
+import ItemReview  from './ItemReview.js';
 
 function ListingDetail(props) {
     
     const { state } = useLocation();
-    const {listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip} = state;
+    const {listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip, listingAmenities} = state;
     
     const [image, setImage] = useState("https://images.unsplash.com/photo-1551963831-b3b1ca40c98e");
     
     return (
+      <div>
         <div className="grid-even-columns">
             <ImageList sx={{ width: 150, height: 300, margin: 0}} cols={1} rowHeight={105}>
               {itemData.map((item) => (
@@ -29,7 +31,7 @@ function ListingDetail(props) {
               ))}
             </ImageList>
             <div className="grid-inner-rows">
-              <h3> {listingTitle} </h3>
+              <h2> {listingTitle} </h2>
               <p> { listingCity }, { listingState }</p>
               <CardMedia
                 component="img"
@@ -38,12 +40,20 @@ function ListingDetail(props) {
                 alt="storage unit outline"
               />
             </div>
-            <div>
+            <div className="grid-listing-description">
               <h2> { listingPrice } </h2>
               <StyledButton type="submit" variant="contained">Request Listing</StyledButton>
               <p> { listingDescription } </p>
             </div>
         </div>
+        <div>
+              <h2>
+                Amenities: <br />
+                <p font-weight="normal">{ listingAmenities }</p>
+              </h2>
+            </div>
+        <ItemReview />
+      </div>
     );
 }
 

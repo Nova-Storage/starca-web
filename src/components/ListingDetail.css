@@ -22,21 +22,29 @@
     margin-top: 2vmin;
     margin-right: 2vmin;
 }
-
-h3, p {
-    margin: 0;
-}
 */
+h2, p {
+    margin: 0;
+    margin-left: 1%;
+}
+
+p {
+    color: gray;
+    margin-bottom: 2%;
+}
+
 
 .grid-even-columns {
     margin: 5vmin;
     display: grid;
     gap: 1rem;
-    grid-template-columns: 1fr 2.5fr 3fr;
-    align-self: flex-start;
+    grid-template-columns: 0.5fr 1.5fr 3fr;
+    align-items: end;
 }
 
 .grid-inner-rows {
     display: grid;
-    grid-template-rows: 1fr 1fr 4fr
+    grid-template-columns: 1fr;
+    text-align: start;
 }
+

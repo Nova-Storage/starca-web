@@ -10,11 +10,6 @@ function Listings(props) {
     //TODO: this will be replaced by state variable once I can call data from DB
     const listings = ListingsData.listings;
     const navigate = useNavigate();
-  
-    const handleListingSelection = event => {
-        navigate('/detail', {});
-        event.preventDefault();
-    }
     
     //TODO: Ellipsize the title
     
@@ -31,7 +26,8 @@ function Listings(props) {
                             listingAddress: listing.listingAddres,
                             listingCity: listing.listingCity,
                             listingState: listing.listingState,
-                            listingZip: listing.listingZip
+                            listingZip: listing.listingZip,
+                            listingAmenities: listing.amenities
                         } });
                         
                     }}>
@@ -42,7 +38,8 @@ function Listings(props) {
                             listingAddress={ listing.listingAddress }
                             listingCity={ listing.listingCity }
                             listingState={ listing.listingState } 
-                            listingZip={ listing.listingZip }/>
+                            listingZip={ listing.listingZip }
+                            listingAmenities= {listing.amenities }/>
                     </Grid>
                     );
                 })}
