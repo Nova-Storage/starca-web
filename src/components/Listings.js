@@ -16,7 +16,7 @@ function Listings(props) {
     return (
         <div className="listings">
             <Grid container rowSpacing={2} columnSpacing={1}>
-                {listings.map(listing => {
+                {listings.slice(0,9).map(listing => {
                 return(
                     <Grid xs={4} onClick={ () => { 
                         navigate('/detail', { state: {

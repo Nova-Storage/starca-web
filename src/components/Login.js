@@ -61,7 +61,7 @@ function Login(props) {
   };
   
   return (
-      <div>
+      <div className='login-container'>
           <h1>Login</h1>
           <form onSubmit={authenticateUser}>
             <table>

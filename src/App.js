@@ -12,6 +12,7 @@ import AccountMenu from './components/AccountMenu.js';
 import Dashboard from './components/Dashboard';
 import Listings from './components/Listings.js';
 import ListingDetail from './components/ListingDetail.js';
+import Footer from './components/Footer.js';
 
 function App() {
   
@@ -60,6 +61,7 @@ function App() {
             </Routes>
           </div>
         </Router>
+        <Footer />
       </div>
       );
   }
@@ -88,11 +90,12 @@ function App() {
               </Route>
               <Route exact path="/login" element={<Login authenticated={authenticated} />}>
               </Route>
-              <Route path="/register" element={<Register />}>
+              <Route exact path="/register" element={<Register />}>
               </Route>
             </Routes>
           </div>
         </Router>
+        <Footer />
       </div>
     );
 }

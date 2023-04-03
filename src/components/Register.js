@@ -42,7 +42,7 @@ function Register(props) {
   };
   
   return (
-      <div>
+      <div className='register-container'>
           <h1>Register</h1>
           <form onSubmit={handleRegisterSubmit}>
             <table>
