@@ -14,13 +14,18 @@ function ListingDetail(props) {
     const {listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip, listingAmenities} = state;
     
     const [image, setImage] = useState("https://images.unsplash.com/photo-1551963831-b3b1ca40c98e");
+
+    const handleImageClick = event => {
+      console.log("Event: " + event);
+      setImage(event);
+    }
     
     return (
       <div>
         <div className="grid-even-columns">
             <ImageList sx={{ width: 150, height: 300, margin: 0}} cols={1} rowHeight={105}>
               {itemData.map((item) => (
-                <ImageListItem key={item.img}>
+                <ImageListItem key={item.img} onClick={() => handleImageClick(item.img)} className='image-list-item'>
                   <img
                     src={`${item.img}?w=100&h=100&fit=crop&auto=format`}
                     srcSet={`${item.img}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}

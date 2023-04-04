@@ -48,3 +48,8 @@ p {
     text-align: start;
 }
 
+.image-list-item:hover {
+    cursor: pointer;
+}
+
+

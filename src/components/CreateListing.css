@@ -1,0 +1,15 @@
+.create-listing-container {
+    height: 100vh;
+    margin-top: 2%;
+}
+
+.create-listing-title {
+    margin-left: 2%;
+    text-align: left;
+}
+/*
+.create-listing-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+*/
