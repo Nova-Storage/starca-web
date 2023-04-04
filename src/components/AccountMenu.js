@@ -43,6 +43,11 @@ export default function AccountMenu(props) {
     navigate('/account');
   }
   
+  const handleMyListingsClick = () => {
+    handleClose()
+    navigate('/my-listings');
+  }
+  
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -107,7 +112,7 @@ export default function AccountMenu(props) {
           </ListItemIcon>
           Messages
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleMyListingsClick}>
           <ListItemIcon>
             <WarehouseIcon fontSize="small" />
           </ListItemIcon>

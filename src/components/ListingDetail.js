@@ -5,44 +5,60 @@ import StorageUnitOutline from '../images/StorageUnitOutline.jpg';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { useState } from  'react';
+import { StyledButton } from './StyledMuiComponents.js';
+import ItemReview  from './ItemReview.js';
 
 function ListingDetail(props) {
     
     const { state } = useLocation();
-    const {listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip} = state;
+    const {listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip, listingAmenities} = state;
     
     const [image, setImage] = useState("https://images.unsplash.com/photo-1551963831-b3b1ca40c98e");
+
+    const handleImageClick = event => {
+      console.log("Event: " + event);
+      setImage(event);
+    }
     
     return (
+      <div>
         <div className="grid-even-columns">
-            <div>
-                <h3> {listingTitle} </h3>
-                <p> { listingCity }, { listingState }</p>
-                <div className="grid-inner-columns">
-                  <ImageList sx={{ width: 150, height: 300, margin: 0}} cols={1} rowHeight={105}>
-                    {itemData.map((item) => (
-                      <ImageListItem key={item.img}>
-                        <img
-                          src={`${item.img}?w=100&h=100&fit=crop&auto=format`}
-                          srcSet={`${item.img}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
-                          alt={item.title}
-                          loading="lazy"
-                        />
-                      </ImageListItem>
-                    ))}
-                  </ImageList>
-                  <CardMedia
-                    component="img"
-                    height="300"
-                    image={ image }
-                    alt="storage unit outline"
+            <ImageList sx={{ width: 150, height: 300, margin: 0}} cols={1} rowHeight={105}>
+              {itemData.map((item) => (
+                <ImageListItem key={item.img} onClick={() => handleImageClick(item.img)} className='image-list-item'>
+                  <img
+                    src={`${item.img}?w=100&h=100&fit=crop&auto=format`}
+                    srcSet={`${item.img}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.title}
+                    loading="lazy"
                   />
-                </div>
+                </ImageListItem>
+              ))}
+            </ImageList>
+            <div className="grid-inner-rows">
+              <h2> {listingTitle} </h2>
+              <p> { listingCity }, { listingState }</p>
+              <CardMedia
+                component="img"
+                height="300"
+                image={ image }
+                alt="storage unit outline"
+              />
             </div>
-            <div>
+            <div className="grid-listing-description">
               <h2> { listingPrice } </h2>
+              <StyledButton type="submit" variant="contained">Request Listing</StyledButton>
+              <p> { listingDescription } </p>
             </div>
         </div>
+        <div>
+              <h2>
+                Amenities: <br />
+                <p font-weight="normal">{ listingAmenities }</p>
+              </h2>
+            </div>
+        <ItemReview />
+      </div>
     );
 }
 

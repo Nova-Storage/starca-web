@@ -1,0 +1,23 @@
+.paper-container {
+    margin: 1% 15%;
+}
+
+.grid-review-columns {
+    margin-top: 1vmin;
+    padding: 2vmin 4vmin;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 2.5fr;
+    
+}
+
+.grid-inner-rows {
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: start;
+}
+
+.rating {
+    display: grid;
+    align-items: start;
+}

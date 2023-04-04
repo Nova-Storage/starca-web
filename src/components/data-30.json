@@ -2,7 +2,7 @@
 	"listings": [
 		{
 			"listingTitle": "Montes, nascetur ridiculus mus",
-			"listingDescription": "urna. Vivamus molestie dapibus ligula. Aliquam erat volutpat. Nulla dignissim. Maecenas",
+			"listingDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut!",
 			"listingAddress": "969-4768 Dolor Street",
 			"listingCity": "Boston",
 			"listingState": "Massachusetts",
@@ -12,7 +12,7 @@
 			"listingLen": 9,
 			"listingWid": 12,
 			"listingHeight": 8,
-			"amenities": "violet, indigo",
+			"amenities": "violet, indigo, green",
 			"imageUrl": "https://zoom.us/sub"
 		},
 		{

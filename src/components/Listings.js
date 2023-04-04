@@ -10,18 +10,13 @@ function Listings(props) {
     //TODO: this will be replaced by state variable once I can call data from DB
     const listings = ListingsData.listings;
     const navigate = useNavigate();
-  
-    const handleListingSelection = event => {
-        navigate('/detail', {});
-        event.preventDefault();
-    }
     
     //TODO: Ellipsize the title
     
     return (
         <div className="listings">
             <Grid container rowSpacing={2} columnSpacing={1}>
-                {listings.map(listing => {
+                {listings.slice(0,9).map(listing => {
                 return(
                     <Grid xs={4} onClick={ () => { 
                         navigate('/detail', { state: {
@@ -31,7 +26,8 @@ function Listings(props) {
                             listingAddress: listing.listingAddres,
                             listingCity: listing.listingCity,
                             listingState: listing.listingState,
-                            listingZip: listing.listingZip
+                            listingZip: listing.listingZip,
+                            listingAmenities: listing.amenities
                         } });
                         
                     }}>
@@ -42,7 +38,8 @@ function Listings(props) {
                             listingAddress={ listing.listingAddress }
                             listingCity={ listing.listingCity }
                             listingState={ listing.listingState } 
-                            listingZip={ listing.listingZip }/>
+                            listingZip={ listing.listingZip }
+                            listingAmenities= {listing.amenities }/>
                     </Grid>
                     );
                 })}

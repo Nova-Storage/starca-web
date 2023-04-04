@@ -1,0 +1,32 @@
+.footer-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: black;
+    padding: 4rem 0 2rem 0;
+}
+
+.footer-link-headers {
+    color:white
+}
+
+.grid-footer-link-sections {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 16px;
+}
+
+.footer-links a {
+    color: gray;
+    text-decoration: none;
+    margin: 4px;
+}
+
+.footer-register-link {
+    color: #0C825F;
+    text-decoration: none;
+}

@@ -12,6 +12,9 @@ import AccountMenu from './components/AccountMenu.js';
 import Dashboard from './components/Dashboard';
 import Listings from './components/Listings.js';
 import ListingDetail from './components/ListingDetail.js';
+import Footer from './components/Footer.js';
+import CreateListing from './components/CreateListing.js';
+import MyListings from './components/MyListings.js'
 
 function App() {
   
@@ -53,13 +56,16 @@ function App() {
               </Route>
               <Route exact path="/login" element={<Login authenticated={authenticated}/>}>
               </Route>
-              <Route exact path="/account" element={<Listings />}>
+              <Route exact path="/account" element={<CreateListing />}>
               </Route>
               <Route exact path="/detail" element={<ListingDetail />}>
+              </Route>
+              <Route exact path="/my-listings" element={<MyListings />}>
               </Route>
             </Routes>
           </div>
         </Router>
+        <Footer />
       </div>
       );
   }
@@ -88,11 +94,12 @@ function App() {
               </Route>
               <Route exact path="/login" element={<Login authenticated={authenticated} />}>
               </Route>
-              <Route path="/register" element={<Register />}>
+              <Route exact path="/register" element={<Register />}>
               </Route>
             </Routes>
           </div>
         </Router>
+        <Footer />
       </div>
     );
 }
