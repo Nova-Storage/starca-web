@@ -14,6 +14,7 @@ import Listings from './components/Listings.js';
 import ListingDetail from './components/ListingDetail.js';
 import Footer from './components/Footer.js';
 import CreateListing from './components/CreateListing.js';
+import MyListings from './components/MyListings.js'
 
 function App() {
   
@@ -58,6 +59,8 @@ function App() {
               <Route exact path="/account" element={<CreateListing />}>
               </Route>
               <Route exact path="/detail" element={<ListingDetail />}>
+              </Route>
+              <Route exact path="/my-listings" element={<MyListings />}>
               </Route>
             </Routes>
           </div>
