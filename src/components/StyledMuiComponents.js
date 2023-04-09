@@ -1,7 +1,6 @@
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-
 import FormControl from '@mui/material/FormControl';
 
   
@@ -78,4 +77,15 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
       }
     },
   margin: 10,
+}));
+
+export const StyledUploadButton = styled(Button)(({ theme }) => ({
+  color: "gray",
+  margin: '5px',
+  borderColor: "#0C825F",
+  '&:hover': {
+    background: "#027251",
+    borderColor: "#0C825F",
+    color: "white"
+  }
 }));

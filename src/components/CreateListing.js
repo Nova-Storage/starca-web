@@ -1,29 +1,43 @@
-import { React,  useState } from 'react';
+import { React, useState, useRef } from 'react';
 import './CreateListing.css';
-import { StyledButton, StyledNegativeButton, LoginTextField, StyledTextField } from './StyledMuiComponents.js';
+import { StyledButton, StyledNegativeButton, StyledTextField, StyledUploadButton } from './StyledMuiComponents.js';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { useNavigate } from 'react-router-dom';
+import { upload } from '@testing-library/user-event/dist/upload';
 
 function CreateListing() {
 
   const navigate = useNavigate();
+  const [images, setImages] = useState([]);
+  const [fileUploadText, setFileUploadText] = useState("");
+  const tooManyFileString = 'Upload up to 5 images only';
+  // Reference to the invisible input button 
+  const hiddenFileInput = useRef(null);
 
   const cancelNewListing = () => {
     navigate('/profile');
   }
 
-  const [images, setImages] = useState([]);
-
   const imageListener = event => {
 
+    // Warn the user too many files have been up
     if (event.target.files.length > 5) {
-      alert("Please upload 1 to 5 images");
       console.log("Too many files");
       event.target.files = null
+      setFileUploadText(tooManyFileString);
       return;
     }
 
+    const uploadString = (event.target.files.length > 0) ? `Uploaded ${event.target.files.length} files` : 'No files uploaded'
+    setFileUploadText(uploadString);
+
     const imagesSelected = Array.from(event.target.files);
     setImages(imagesSelected);
+  }
+
+  // Targets the invisible input button when we click our custom upload button
+  const handleUploadButtonClick = event => {
+    hiddenFileInput.current.click();
   }
   
 
@@ -90,10 +104,15 @@ function CreateListing() {
             <StyledTextField id="length" label="Length" variant="outlined" sx={{ width: '100%', maxWidth: '30%'}}/>
             <StyledTextField id="width" label="Width" variant="outlined" sx={{ width: '100%', maxWidth: '30%'}}/>
             <StyledTextField id="height" label="Height" variant="outlined" sx={{ width: '100%', maxWidth: '30%'}} />
-            
             <StyledTextField id="zipcode" label="Zip Code" variant="outlined"/>
             <StyledTextField id="price" label="Price" variant="outlined" className='price'/>
-            <input type="file" id="images" multiple onChange={imageListener} accept=".jpg,.png"/>
+            <div id="images">
+              <StyledUploadButton variant="outlined" startIcon={<FileUploadOutlinedIcon />} onClick={handleUploadButtonClick}>
+                Upload your images
+              </StyledUploadButton>
+              <p style={{color: fileUploadText === tooManyFileString ? 'red' : 'gray'}}>{fileUploadText}</p>
+            </div>
+            <input type="file" ref={hiddenFileInput} id="hidden-input" multiple onChange={imageListener} accept=".jpg,.png" style={{display: 'none'}}/>
             <StyledNegativeButton type="button" variant="contained" id="cancel" onClick={cancelNewListing}>Cancel</StyledNegativeButton>
             <StyledButton type="submit" id="submit" variant="contained">Submit</StyledButton>
         </form>
