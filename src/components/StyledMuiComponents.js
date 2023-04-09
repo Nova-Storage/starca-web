@@ -1,6 +1,9 @@
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+
+import FormControl from '@mui/material/FormControl';
+
   
 export const StyledButton = styled(Button)(({ theme }) => ({
   width: 300,
@@ -21,6 +24,25 @@ export const StyledNegativeButton = styled(Button)(({ theme }) => ({
   }));
   
 export const LoginTextField = styled(TextField)(({ theme }) => ({
+  width: 300,
+  "& label.Mui-focused": {
+    color: "#0C825F"
+  },
+  "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "gray"
+      },
+      "&:hover fieldset": {
+        borderColor: "gray"
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#0C825F"
+      }
+    },
+  margin: 10,
+}));
+
+export const StyledPasswordFormControl = styled(FormControl)(({ theme }) => ({
   width: 300,
   "& label.Mui-focused": {
     color: "#0C825F"

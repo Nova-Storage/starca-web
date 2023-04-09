@@ -3,9 +3,22 @@ import React, { useCallback, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { StyledButton, LoginTextField} from './StyledMuiComponents.js';
+import { StyledButton, LoginTextField, StyledPasswordFormControl} from './StyledMuiComponents.js';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import starcaLogo from '../images/starca-logo-icon.png';
 
 function Login(props) {
+
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   
   /*
   useEffect (() => {
@@ -61,8 +74,12 @@ function Login(props) {
   };
   
   return (
-      <div className='login-container'>
+      <div className='login-grid-container'>
+          <div>
+          <img src={ starcaLogo } width="100" height="100" style={{display: 'flex', alignItems: 'left', marginLeft: '10%'}}/>
           <h1>Login</h1>
+          <h2>Welcome back</h2>
+          <p>Rent your space or declutter your place!</p>
           <form onSubmit={authenticateUser}>
             <table>
               <tr>
@@ -72,13 +89,36 @@ function Login(props) {
               </tr>
               <tr>
                 <td>
-                <LoginTextField id="password" label="Password" variant="outlined" />
+                <StyledPasswordFormControl variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                  <OutlinedInput
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                </StyledPasswordFormControl>
                 </td>
               </tr>
             </table>
             <StyledButton type="submit" variant="contained">Login</StyledButton>
           </form>
           <p>Don't have an account yet? <a className="register-link" onClick={handleSignUp}>Sign up</a></p>
+          </div>
+          <div>
+            Carousel stuff
+          </div>
       </div>);
 }
 
