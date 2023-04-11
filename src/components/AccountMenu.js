@@ -48,7 +48,7 @@ export default function AccountMenu(props) {
     navigate('/my-listings');
   }
 
-  const handleMessaggesClick = () => {
+  const handleMessagesClick = () => {
     handleClose()
     navigate('/messages')
   }
@@ -111,7 +111,7 @@ export default function AccountMenu(props) {
           <Avatar /> Account
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleMessagesClick}>
           <ListItemIcon>
             <MessageIcon fontSize="small" />
           </ListItemIcon>
@@ -128,12 +128,6 @@ export default function AccountMenu(props) {
             <RecentActorsIcon fontSize="small" />
           </ListItemIcon>
           My Requests
-        </MenuItem>
-        <MenuItem onClick={handleMessaggesClick}>
-          <ListItemIcon>
-            <RecentActorsIcon fontSize="small" />
-          </ListItemIcon>
-          Messages
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
