@@ -15,6 +15,7 @@ import ListingDetail from './components/ListingDetail.js';
 import Footer from './components/Footer.js';
 import CreateListing from './components/CreateListing.js';
 import MyListings from './components/MyListings.js'
+import Message from './components/Message.js'
 
 function App() {
   
@@ -95,6 +96,8 @@ function App() {
               <Route exact path="/login" element={<Login authenticated={authenticated} />}>
               </Route>
               <Route exact path="/register" element={<Register />}>
+              </Route>
+              <Route exact path="/messages" element={<Message />}>
               </Route>
             </Routes>
           </div>

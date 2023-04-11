@@ -46,6 +46,7 @@ function Login(props) {
         // Get the user's information if authenticated successfully
         if (json === "You Logged in.!"){
           props.authenticated();
+          sessionStorage.setItem("email", event.target.email.value);
           navigate('/');
         }
         else {
