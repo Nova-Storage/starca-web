@@ -63,6 +63,8 @@ function App() {
               </Route>
               <Route exact path="/my-listings" element={<MyListings />}>
               </Route>
+              <Route exact path="/messages" element={<Message />}>
+              </Route>
             </Routes>
           </div>
         </Router>
@@ -96,8 +98,6 @@ function App() {
               <Route exact path="/login" element={<Login authenticated={authenticated} />}>
               </Route>
               <Route exact path="/register" element={<Register />}>
-              </Route>
-              <Route exact path="/messages" element={<Message />}>
               </Route>
             </Routes>
           </div>
