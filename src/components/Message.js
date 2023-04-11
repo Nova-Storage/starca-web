@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import './Message.css'
 
 import SendbirdApp from '@sendbird/uikit-react/App';
@@ -55,6 +56,14 @@ function Message() {
 
             </div>
         );
+    }
+
+    else {
+        return (
+            <div className='Loading'>
+                <CircularProgress />
+            </div>
+        )
     }
 };
 
