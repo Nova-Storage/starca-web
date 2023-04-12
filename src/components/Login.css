@@ -24,5 +24,9 @@ table {
     display: grid;
     grid-template-columns: 1fr 1.25fr;
     height: 95vh;
-    margin-top: 2%;
+}
+
+.carousel .slide img {
+  height: 95vh;  /* change this to whatever you want */
+  width: auto;
 }
