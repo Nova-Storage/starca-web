@@ -29,7 +29,7 @@ function ListingDetail(props) {
         'Api-Token': `${process.env.REACT_APP_SENDBIRD_API_TOKEN}`
       },
       body: JSON.stringify({
-        "user_ids": ["mr754@njit.edu", "testuser@gmail.com"],
+        "user_ids": ["mr754@njit.edu", "testuser@gmail.com"], // HAVE TO CHANGE, HARDCODED FOR NOW
         "is_distinct": true,
       })
     })
@@ -46,7 +46,7 @@ function ListingDetail(props) {
             "user_id": sessionStorage.getItem("email"),
             "message": `Hello, I am interested in your storage listing at ${listingAddress}, ${listingCity}, ${listingState} ${listingZip}`,
             "mention_type": "users",
-            "mentioned_user_ids": ["testuser@gmail.com"]
+            "mentioned_user_ids": ["testuser@gmail.com"] // HAVE TO CHANGE, HARDCODED FOR NOW
           })
         })
           .then(res => res.json())
