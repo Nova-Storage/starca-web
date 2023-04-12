@@ -28,6 +28,7 @@ export default function AccountMenu(props) {
   
   const handleLogout = () => {
     setAnchorEl(null);
+    sessionStorage.clear();
     props.authenticated();
     navigate('/');
   };

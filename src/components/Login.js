@@ -13,6 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import starcaLogo from '../images/starca-logo-icon.png';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import CircleIcon from '@mui/icons-material/Circle';
 
 function Login(props) {
 
@@ -76,11 +77,11 @@ function Login(props) {
       event.preventDefault();
   };
   
+  //TODO: Remove the h1 inline style and make the entire left side center vertically with grid
   return (
       <div className='login-grid-container'>
           <div>
-          <img src={ starcaLogo } width="100" height="100" style={{display: 'flex', alignItems: 'left', marginLeft: '10%'}}/>
-          <h1>Login</h1>
+          <h1 style={{marginTop: '20%'}}>Login</h1>
           <h2>Welcome back</h2>
           <p>Rent your space or declutter your place!</p>
           <form onSubmit={authenticateUser}>
@@ -120,7 +121,26 @@ function Login(props) {
           <p>Don't have an account yet? <a className="register-link" onClick={handleSignUp}>Sign up</a></p>
           </div>
           <div>
-            <Carousel animationHandler='fade' autoPlay='true' interval='5000' infiniteLoop='true' showThumbs='false'>
+            <Carousel animationHandler='fade' autoPlay='true' interval='4000' infiniteLoop='true' showThumbs={false} showStatus={false} renderIndicator={(onClickHandler, isSelected, index, label) => {
+              const defStyle = { marginLeft: 20, color: "lightgray", cursor: "pointer" };
+              const style = isSelected
+                ? { ...defStyle, color: "#0C825F" }
+                : { ...defStyle };
+              return (
+                <span
+                  style={style}
+                  onClick={onClickHandler}
+                  onKeyDown={onClickHandler}
+                  value={index}
+                  key={index}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${label} ${index + 1}`}
+                >
+                  {<CircleIcon fontSize='12px'/>}
+                </span>
+              );
+            }}>
                   <div>
                       <img src="https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80" />
                       <p className="legend">Legend 1</p>
