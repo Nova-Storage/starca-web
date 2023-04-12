@@ -20,6 +20,9 @@ table {
     margin: auto;
 }
 
-.login-container {
-    height: 100vh;
+.login-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    height: 95vh;
+    margin-top: 2%;
 }

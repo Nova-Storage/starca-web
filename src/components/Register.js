@@ -69,12 +69,12 @@ function Register(props) {
                   </tr>
                   <tr>
                     <td>
-                    <LoginTextField id="password" label="Password" variant="outlined" />
+                    <LoginTextField id="password" label="Password" type="password" variant="outlined" />
                     </td>
                   </tr>
                   <tr>
                     <td>
-                    <LoginTextField id="confirm_password" label="Confirm Password" variant="outlined" />
+                    <LoginTextField id="confirm_password" label="Confirm Password" type="password" variant="outlined" />
                     </td>
                   </tr>
                 </tbody>

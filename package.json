@@ -20,6 +20,7 @@
     "react-geocode": "^0.2.3",
     "react-google-autocomplete": "^2.7.3",
     "react-icons": "^4.7.1",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
     "url": "^0.11.0",

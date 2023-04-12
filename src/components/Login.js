@@ -3,9 +3,24 @@ import React, { useCallback, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { StyledButton, LoginTextField} from './StyledMuiComponents.js';
+import { StyledButton, LoginTextField, StyledPasswordFormControl} from './StyledMuiComponents.js';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import starcaLogo from '../images/starca-logo-icon.png';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 function Login(props) {
+
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   
   /*
   useEffect (() => {
@@ -62,8 +77,12 @@ function Login(props) {
   };
   
   return (
-      <div className='login-container'>
+      <div className='login-grid-container'>
+          <div>
+          <img src={ starcaLogo } width="100" height="100" style={{display: 'flex', alignItems: 'left', marginLeft: '10%'}}/>
           <h1>Login</h1>
+          <h2>Welcome back</h2>
+          <p>Rent your space or declutter your place!</p>
           <form onSubmit={authenticateUser}>
             <table>
               <tr>
@@ -73,14 +92,65 @@ function Login(props) {
               </tr>
               <tr>
                 <td>
-                <LoginTextField id="password" label="Password" variant="outlined" />
+                <StyledPasswordFormControl variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                  <OutlinedInput
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                </StyledPasswordFormControl>
                 </td>
               </tr>
             </table>
             <StyledButton type="submit" variant="contained">Login</StyledButton>
           </form>
           <p>Don't have an account yet? <a className="register-link" onClick={handleSignUp}>Sign up</a></p>
+          </div>
+          <div>
+            <Carousel animationHandler='fade' autoPlay='true' interval='5000' infiniteLoop='true' showThumbs='false'>
+                  <div>
+                      <img src="https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80" />
+                      <p className="legend">Legend 1</p>
+                  </div>
+                  <div>
+                      <img src="https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80" />
+                      <p className="legend">Legend 2</p>
+                  </div>
+                  <div>
+                      <img src="https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80" />
+                      <p className="legend">Legend 3</p>
+                  </div>
+              </Carousel>
+          </div>
       </div>);
 }
 
 export default Login;
+
+const fadeImages = [
+  {
+    url: 'https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+    caption: 'First Slide'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80',
+    caption: 'Second Slide'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+    caption: 'Third Slide'
+  },
+];
