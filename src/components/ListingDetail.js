@@ -53,8 +53,6 @@ function ListingDetail(props) {
         })
           .then(res => res.json())
           .then(data => {
-            console.log(data)
-            console.log("Message Successfully Sent")
           })
           .catch(error => {
             console.log("Error Sending Message")
