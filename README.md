@@ -18,3 +18,4 @@ npm start
 - react-google-maps/api
 - react-geocode
 - react-google-autocomplete
+- react-responsive-carousel

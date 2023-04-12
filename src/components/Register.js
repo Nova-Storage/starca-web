@@ -1,7 +1,5 @@
 import './Register.css';
 import { useNavigate } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import { styled } from '@mui/material/styles';
 import { StyledButton, LoginTextField } from './StyledMuiComponents.js'
   
 function Register(props) {
@@ -9,9 +7,6 @@ function Register(props) {
   const navigate = useNavigate();
   
   const handleRegisterSubmit = event => {
-    
-    console.log(event.target.email.value);
-    console.log(event.target.password.value);
     
     fetch('https://starcaserver.com/register', {
       method: 'POST',
@@ -22,9 +17,13 @@ function Register(props) {
         email: event.target.email.value,
         passwrd: event.target.password.value,
         confirmPassword: event.target.confirm_password.value,
-        fname: event.target.first_name.value,
-        lname: event.target.last_name.value,
-        phnum: event.target.phone_number.value
+        ufname: event.target.first_name.value,
+        ulname: event.target.last_name.value,
+        uphnum: event.target.phone_number.value,
+        ustreet: event.target.street.value,
+        ucity: event.target.city.value,
+        ustate: event.target.state.value,
+        uzip: event.target.zip.value
       })
     })
       .then(res => res.text()) //Change from text to json
@@ -51,27 +50,35 @@ function Register(props) {
                     <td>
                     <LoginTextField id="first_name" label="First Name" variant="outlined" />
                     </td>
-                  </tr>
-                  <tr>
                     <td>
                     <LoginTextField id="last_name" label="Last Name" variant="outlined" />
                     </td>
-                  </tr>
-                  <tr>
                     <td>
-                    <LoginTextField id="email" label="Email" variant="outlined" />
+                    <LoginTextField id="email" label="Email" type="email" variant="outlined" />
                     </td>
                   </tr>
                   <tr>
                     <td>
-                    <LoginTextField id="phone_number" label="Phone Number" variant="outlined" />
+                    <LoginTextField id="street" label="Street Address" variant="outlined" />
+                    </td>
+                    <td>
+                    <LoginTextField id="city" label="City" variant="outlined" />
+                    </td>
+                    <td>
+                    <LoginTextField id="state" label="State" variant="outlined" />
                     </td>
                   </tr>
                   <tr>
+                    <td>
+                    <LoginTextField id="zip" label="Zip Code" variant="outlined" />
+                    </td>
+                    <td>
+                    <LoginTextField id="phone_number" label="Phone Number" type='tel' variant="outlined" />
+                    </td>
+                  </tr> 
                     <td>
                     <LoginTextField id="password" label="Password" type="password" variant="outlined" />
                     </td>
-                  </tr>
                   <tr>
                     <td>
                     <LoginTextField id="confirm_password" label="Confirm Password" type="password" variant="outlined" />
