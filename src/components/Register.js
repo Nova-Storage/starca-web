@@ -35,6 +35,26 @@ function Register(props) {
         }
       })
       .catch(error => console.log(error));
+
+      fetch(`https://api-${process.env.REACT_APP_SENDBIRD_ID}.sendbird.com/v3/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Api-Token': `${process.env.REACT_APP_SENDBIRD_API_TOKEN}`
+      },
+      body: JSON.stringify({
+        user_id: event.target.email.value,
+        nickname: event.target.first_name.value + " " + event.target.last_name.value,
+        profile_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png'
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Sendbird User Successfully Created")
+      })
+      .catch(error => {
+        console.log("Error creating Sendbird user: " + error)
+      })
       
       event.preventDefault();
       //.then((result) => setData(result.rows))

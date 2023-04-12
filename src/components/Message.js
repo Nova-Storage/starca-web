@@ -17,7 +17,7 @@ function Message() {
     const [userInfo, setUserInfo] = useState()
 
     const getUserInfo = () => {
-        fetch('https://starcaserver.com/profile', {
+        fetch('http://starcaserver.com/get-user-names', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -49,11 +49,8 @@ function Message() {
                 <SendbirdApp
                     appId={`${process.env.REACT_APP_SENDBIRD_ID}`}     // Specify your Sendbird application ID.
                     userId={sessionStorage.getItem("email")}           // Specify your user ID.
-                    nickname={userInfo.fname + " " + userInfo.lname}   // Specift the nickname to be displayed in the header
+                    nickname={userInfo.ufname + " " + userInfo.ulname}   // Specift the nickname to be displayed in the header
                 />
-                
-
-
             </div>
         );
     }
@@ -66,28 +63,5 @@ function Message() {
         )
     }
 };
-
-// import SendbirdChat from '@sendbird/chat'
-// import { OpenChannelModule, GroupChannelModule, SendbirdOpenChat } from '@sendbird/chat/openChannel';
-
-
-// const sb = SendbirdChat.init({
-//     appId: `${process.env.REACT_APP_SENDBIRD_ID}`,
-//     modules: [
-//         new OpenChannelModule(),
-//     ],
-// })
-
-// try {
-//     const user = await sb.connect(sessionStorage.getItem("email")
-//     )
-    
-// } catch (err) {
-
-// }
-
-// function Message() {
-
-// } 
 
 export default Message
