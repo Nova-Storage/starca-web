@@ -1,0 +1,11 @@
+.Message {
+    height: 100vh;   
+    width: 100vw;   
+  }
+ .Loading {
+    height: 100vh;   
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }

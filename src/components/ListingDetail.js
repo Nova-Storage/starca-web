@@ -8,6 +8,7 @@ import { useState } from  'react';
 import { StyledButton } from './StyledMuiComponents.js';
 import ItemReview  from './ItemReview.js';
 
+
 function ListingDetail(props) {
     
     const { state } = useLocation();
@@ -18,6 +19,46 @@ function ListingDetail(props) {
     const handleImageClick = event => {
       console.log("Event: " + event);
       setImage(event);
+    }
+
+    async function handleRequestClick() {
+      fetch(`https://api-${process.env.REACT_APP_SENDBIRD_ID}.sendbird.com/v3/group_channels`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Api-Token': `${process.env.REACT_APP_SENDBIRD_API_TOKEN}`
+      },
+      body: JSON.stringify({
+        "user_ids": ["mr754@njit.edu", "testuser@gmail.com"], // HAVE TO CHANGE, HARDCODED FOR NOW
+        "is_distinct": true,
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        fetch(`https://api-${process.env.REACT_APP_SENDBIRD_ID}.sendbird.com/v3/group_channels/${data.channel_url}/messages`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Api-Token': `${process.env.REACT_APP_SENDBIRD_API_TOKEN}`
+          },
+          body: JSON.stringify({
+            "message_type": "MESG",
+            "user_id": sessionStorage.getItem("email"),
+            "message": `Hello, I am interested in your storage listing at ${listingAddress}, ${listingCity}, ${listingState} ${listingZip}`,
+            "mention_type": "users",
+            "mentioned_user_ids": ["testuser@gmail.com"] // HAVE TO CHANGE, HARDCODED FOR NOW
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+          })
+          .catch(error => {
+            console.log("Error Sending Message")
+          })
+      })
+      .catch(error => {
+        console.log("Error Creating Channel")
+      })
     }
     
     return (
@@ -47,7 +88,7 @@ function ListingDetail(props) {
             </div>
             <div className="grid-listing-description">
               <h2> { listingPrice } </h2>
-              <StyledButton type="submit" variant="contained">Request Listing</StyledButton>
+              <StyledButton type="submit" variant="contained" onClick={() => handleRequestClick()}>Request Listing</StyledButton>
               <p> { listingDescription } </p>
             </div>
         </div>
