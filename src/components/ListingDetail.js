@@ -7,8 +7,6 @@ import ImageListItem from '@mui/material/ImageListItem';
 import { useState } from  'react';
 import { StyledButton } from './StyledMuiComponents.js';
 import ItemReview  from './ItemReview.js';
-import SendbirdChat from '@sendbird/chat'
-import { GroupChannelModule, SendbirdOpenChat } from '@sendbird/chat/groupChannel';
 
 
 function ListingDetail(props) {
@@ -46,7 +44,7 @@ function ListingDetail(props) {
           body: JSON.stringify({
             "message_type": "MESG",
             "user_id": sessionStorage.getItem("email"),
-            "message": "Hello, I am interested in your storage listing",
+            "message": `Hello, I am interested in your storage listing at ${listingAddress}, ${listingCity}, ${listingState} ${listingZip}`,
             "mention_type": "users",
             "mentioned_user_ids": ["testuser@gmail.com"]
           })
