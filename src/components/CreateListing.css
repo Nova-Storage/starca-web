@@ -4,7 +4,7 @@
 }
 
 .create-listing-title {
-    margin-left: 2%;
+    margin-left: 5%;
     text-align: left;
 }
 
@@ -43,6 +43,7 @@
 #zipcode {
     grid-area: zipcode;
 }
+
 /* Using . instead of # because mui components do not respond to being selected by id using #.  */
 .price {
     grid-area: price;
@@ -60,17 +61,34 @@
     grid-area: submit;
 }
 
+#cameras {
+    grid-area: cameras;
+}
+
+#climate {
+    grid-area: climate;
+}
+
+#biometrics {
+    grid-area: biometrics;
+}
+
+#wheelchair {
+    grid-area: wheelchair;
+}
+
 .create-listing-form {
     display: grid;
     grid-auto-columns: 1fr;
     grid-auto-rows: 1fr;
     gap: 0.2rem;
     grid-template-areas: 
-        'title title title street'
-        'descr descr descr city'
-        'descr descr descr state'
+        'title title . street'
+        'descr descr . city'
+        'descr descr . state'
         'length width height zipcode'
         'hidden-input . . price'
+        'cameras climate biometrics wheelchair'
         'images images images images'
         'cancel cancel submit submit';
     place-items: center;
