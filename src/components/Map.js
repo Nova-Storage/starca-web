@@ -41,8 +41,7 @@ const mapOptions = {
   fullscreenControl: false,
 }
 
-// Map component. Takes a center location as a prop. Displays a Google Map centered at 'center'
-// function Map({center}) {
+// Map component. Displays a Google Map 
 function Map() {
 
   const [mapCenter, setCenter] = useState({
@@ -52,30 +51,31 @@ function Map() {
 
   const [zipCode, setZipCode] = useState('')
   const [state, setState] = useState('')
-  const [paths, setPaths] = useState([])
+  const [paths, setPaths] = useState([]) // Array of arrays, each contains a LatLng object of cooridinates
 
-function getPaths() {
-  if (state !== '' && zipCode !== '') {
-    fetch('https://starcaserver.com/boundary', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        zipCode: `${zipCode}`, state: `${state}`
+  // Fetch the coordinates for the border for a given city/zip code
+  function getPaths() {
+    if (state !== '' && zipCode !== '') {
+      fetch('https://starcaserver.com/boundary', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          zipCode: `${zipCode}`, state: `${state}`
+        })
       })
-    })
-      .then(res => res.json())
-      .then(data => {
-        // setPaths([])
-        // setPaths(data)
-        setTimeout(() => {
-          setPaths(data)
-        }, 0)
-      })
-      .catch((error) => console.error("Error:", error))
+        .then(res => res.json())
+        .then(data => {
+          // setPaths([])
+          // setPaths(data)
+          setTimeout(() => {
+            setPaths(data)
+          }, 0)
+        })
+        .catch((error) => console.error("Error:", error))
+    }
   }
-}
 
   // Need to parse the searched area to extract the state. Update the state variable.
   function setStateFromSearch(place) {

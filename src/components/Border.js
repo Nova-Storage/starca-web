@@ -2,11 +2,11 @@ import { Polygon } from '@react-google-maps/api';
 
 
 const lineOptions = {
-    fillColor: "lightblue",
-    fillOpacity: 0.4,
-    strokeColor: "white",
-    strokeOpacity: 1,
-    strokeWeight: 2,
+    fillColor: "#0C825F",
+    fillOpacity: 0.2,
+    strokeColor: "#0C825F",
+    strokeOpacity: 0.3,
+    strokeWeight: 3,
     clickable: false,
     draggable: false,
     editable: false,
