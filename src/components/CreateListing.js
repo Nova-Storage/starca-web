@@ -139,9 +139,9 @@ function CreateListing() {
     <div className='create-listing-container'>
         <h1 className='create-listing-title'>Create Listing</h1>
         <form id="form" className='create-listing-form' onSubmit={createNewListing}>
-            <StyledTextField id="title" label="Title" variant="outlined" sx={{ width: '100%', maxWidth: '80%'}} className='grid-col-span3'/>
+            <StyledTextField id="title" label="Title" variant="outlined" sx={{ width: '100%'}} className='grid-col-span3'/>
             <StyledTextField id="city" label="City" variant="outlined"/>
-            <StyledTextField id="description" label="Description" variant="outlined" multiline="true" rows="4" sx={{ width: '100%', maxWidth: '80%' }} className='grid-col-span3 grid-row-span2'/>
+            <StyledTextField id="description" label="Description" variant="outlined" multiline="true" rows="4" sx={{ width: '100%' }} className='grid-col-span3 grid-row-span2'/>
             <StyledTextField id="street" label="Street Address" variant="outlined"/>
             <StyledTextField id="state" label="State" variant="outlined"/>
             <StyledTextField id="length" label="Length" variant="outlined" type="number" sx={{ width: '100%', maxWidth: '30%'}}/>
