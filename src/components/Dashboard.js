@@ -12,11 +12,28 @@ function Dashboard() {
 
   // State Handler for the center and the Google Map
   const [showMap, setShowMap] = useState(true)
+  const [listings, setListings] = useState([]);
 
   // Toggle whether the map is visible.
   const toggleMap = () => {
     setShowMap(!showMap)
   }
+
+  useEffect(() => {
+      fetch('https://starcaserver.com/get-listings', {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      }
+      })
+      .then(res => res.json())
+      .then(json => {
+          console.log("FETCHED: " + json);
+          setListings(json);
+      })
+      .catch(error => console.log(error));
+  }, [])
 
   if (!showMap) {
     return (
@@ -42,8 +59,8 @@ function Dashboard() {
           onPlaceSelected={(place) => {setCenter(getCoords(place))}}> 
         </Autocomplete> */}
           {/* <Map center={mapCenter}/> */}
-          <Map />
-          <Listings />
+          <Map listings={ listings }/>
+          <Listings listings={ listings }/>
         </div>
       </div>
       )
