@@ -5,6 +5,7 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { useNavigate } from 'react-router-dom';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Paper from '@mui/material/Paper';
 import { upload } from '@testing-library/user-event/dist/upload';
 import logo  from '../images/starca-logo-icon.png';
 
@@ -138,32 +139,36 @@ function CreateListing() {
   return (
     <div className='create-listing-container'>
         <h1 className='create-listing-title'>Create Listing</h1>
-        <form id="form" className='create-listing-form' onSubmit={createNewListing}>
-            <StyledTextField id="title" label="Title" variant="outlined" sx={{ width: '100%'}} className='grid-col-span3'/>
-            <StyledTextField id="city" label="City" variant="outlined"/>
-            <StyledTextField id="description" label="Description" variant="outlined" multiline="true" rows="4" sx={{ width: '100%' }} className='grid-col-span3 grid-row-span2'/>
-            <StyledTextField id="street" label="Street Address" variant="outlined"/>
-            <StyledTextField id="state" label="State" variant="outlined"/>
-            <StyledTextField id="length" label="Length" variant="outlined" type="number" sx={{ width: '100%', maxWidth: '30%'}}/>
-            <StyledTextField id="width" label="Width" variant="outlined" sx={{ width: '100%', maxWidth: '30%'}}/>
-            <StyledTextField id="height" label="Height" variant="outlined" sx={{ width: '100%', maxWidth: '30%'}} />
-            <StyledTextField id="zipcode" label="Zip Code" variant="outlined"/>
-            <StyledTextField id="country" label="Country" variant="outlined"/>
-            <StyledTextField id="price" label="Price" variant="outlined" className='price'/>
-            <FormControlLabel id="cameras" value="top" control={<Checkbox />} label="Security Cameras"  labelPlacement="top" onChange={handleCamerasCheckboxClick}/>
-            <FormControlLabel id="climate" value="top" control={<Checkbox />} label="Climate Control"  labelPlacement="top" onChange={handleClimateCheckboxClick}/>
-            <FormControlLabel id="biometrics" value="top" control={<Checkbox />} label="Biometrics"  labelPlacement="top" onChange={handleBiometricsCheckboxClick}/>
-            <FormControlLabel id="wheelchair" value="top" control={<Checkbox />} label="Wheelchair Accessible"  labelPlacement="top" onChange={handleWheelchairCheckboxClick}/>
-            <div id="images">
-              <StyledUploadButton variant="outlined" startIcon={<FileUploadOutlinedIcon />} onClick={handleUploadButtonClick}>
-                Upload your images
-              </StyledUploadButton>
-              <p style={{color: fileUploadText === tooManyFileString ? 'red' : 'gray'}}>{fileUploadText}</p>
-            </div>
-            <input type="file" ref={hiddenFileInput} id="hidden-input" multiple onChange={imageListener} accept=".jpg,.png" style={{display: 'none'}}/>
-            <StyledNegativeButton type="button" variant="contained" id="cancel" onClick={cancelNewListing}>Cancel</StyledNegativeButton>
-            <StyledButton type="submit" id="submit" variant="contained">Submit</StyledButton>
-        </form>
+        <Paper elevation={3}>
+          <form id="form" className='create-listing-form' onSubmit={createNewListing}>
+              <StyledTextField id="title" label="Title" variant="outlined" sx={{ width: '100%'}} className='grid-col-span2 title'/>
+              <StyledTextField id="description" label="Description" variant="outlined" multiline="true" rows="5" sx={{ width: '100%' }} className='grid-col-span2 grid-row-span2 description'/>
+              <StyledTextField id="street" label="Street Address" variant="outlined" className='street' sx={{ width: '100%'}}/>
+              <StyledTextField id="city" label="City" variant="outlined" className='city' sx={{ width: '100%'}}/>
+              <StyledTextField id="state" label="State" variant="outlined" className='state' sx={{ width: '100%'}}/>
+              <StyledTextField id="country" label="Country" variant="outlined" className='country' sx={{ width: '100%'}}/>
+              <StyledTextField id="zipcode" label="Zip Code" variant="outlined" className='zipcode' sx={{ width: '100%'}}/>
+              <div className='dimensions'>
+                <StyledTextField id="length" label="Length" variant="outlined" type="number" sx={{ width: '100%', maxWidth: '30%'}} className='length'/>
+                <StyledTextField id="width" label="Width" variant="outlined" type="number" sx={{ width: '100%', maxWidth: '30%'}} className='width'/>
+                <StyledTextField id="height" label="Height" variant="outlined" type="number" sx={{ width: '100%', maxWidth: '30%'}} className='height'/>
+              </div>
+              <StyledTextField id="price" label="Price" variant="outlined" type="number" className='price' sx={{ width: '100%'}}/>
+              <FormControlLabel id="cameras" value="top" control={<Checkbox />} label="Security Cameras"  labelPlacement="top" onChange={handleCamerasCheckboxClick}/>
+              <FormControlLabel id="climate" value="top" control={<Checkbox />} label="Climate Control"  labelPlacement="top" onChange={handleClimateCheckboxClick}/>
+              <FormControlLabel id="biometrics" value="top" control={<Checkbox />} label="Biometrics"  labelPlacement="top" onChange={handleBiometricsCheckboxClick}/>
+              <FormControlLabel id="wheelchair" value="top" control={<Checkbox />} label="Wheelchair Accessible"  labelPlacement="top" onChange={handleWheelchairCheckboxClick}/>
+              <div id="images">
+                <StyledUploadButton variant="outlined" startIcon={<FileUploadOutlinedIcon />} onClick={handleUploadButtonClick}>
+                  Upload your images
+                </StyledUploadButton>
+                <p style={{color: fileUploadText === tooManyFileString ? 'red' : 'gray'}}>{fileUploadText}</p>
+              </div>
+              <input type="file" ref={hiddenFileInput} id="hidden-input" multiple onChange={imageListener} accept=".jpg,.png" style={{display: 'none'}}/>
+              <StyledNegativeButton type="button" variant="contained" id="cancel" onClick={cancelNewListing}>Cancel</StyledNegativeButton>
+              <StyledButton type="submit" id="submit" variant="contained">Submit</StyledButton>
+          </form>
+        </Paper>
         <div className='create-listing-buttons'>
             
             
