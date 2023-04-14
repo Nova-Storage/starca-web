@@ -2,7 +2,7 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import { GoogleMap, useJsApiLoader, Polygon } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { CircularProgress } from '@mui/material';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode'
@@ -182,12 +182,17 @@ function Map() {
         mapContainerStyle={containerStyle}
         options={mapOptions}
       >
-        {paths.length !== 0 &&
-          <Border 
-            paths={paths}
-          >
-          </Border>
-        }
+        <div>
+          {paths.length !== 0 &&
+            <Border 
+              paths={paths}
+            >
+            </Border>
+          }
+
+          {/* ADD MARKERS HERE */}
+
+        </div>
       </GoogleMap>
     </div>
   )
