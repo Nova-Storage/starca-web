@@ -18,7 +18,7 @@ function CreateListing() {
   const [climateCheckbox, setClimateCheckbox] = useState(false);
   const [biometricsCheckbox, setBiometricsCheckbox] = useState(false);
   const [wheelchairCheckbox, setWheelchairCheckbox] = useState(false);
-  const tooManyFileString = 'Upload up to 5 images only';
+  const tooManyFilesString = 'Upload up to 5 images only';
   // Reference to the invisible input button 
   const hiddenFileInput = useRef(null);
 
@@ -32,7 +32,7 @@ function CreateListing() {
     if (event.target.files.length > 5) {
       console.log("Too many files");
       event.target.files = null
-      setFileUploadText(tooManyFileString);
+      setFileUploadText(tooManyFilesString);
       return;
     }
 
@@ -80,18 +80,6 @@ function CreateListing() {
     console.log(camerasCheckbox);
     console.log(images);
 
-    /*
-    const selectedImages = Array.prototype.slice.call(event.target.images);
-    const uploaded = [...uploadedFiles]; 
-    files.some((file) => {
-      uploaded.push(file);
-    })*/
-
-    /*
-    setImages({ ...event.target.images });
-    console.log(images);
-    */
-
     //TODO: Change the endpoint
     fetch('https://starcaserver.com/listing', {
       method: 'POST',
@@ -99,7 +87,6 @@ function CreateListing() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        //TODO: Finish these fields, make sure it matchees with field names in backend
         ltitle: event.target.title.value,
         ldescr: event.target.description.value,
         llen: event.target.length.valueAsNumber,
@@ -118,15 +105,15 @@ function CreateListing() {
       }),
       files: images
     })
-      .then(res => res.json()) //Change from text to json
+      .then(res => res.json())
       .then(json => {
         console.log(json)
         // If status 200, let them know listing created
-        if (json === "You Logged in.!"){
+        if (json === ""){
           
         }
         else {
-          //TODO: Make input fields red
+          //TODO: Warn user form not submitted
         }
       })
       .catch(error => console.log(error))
@@ -162,7 +149,7 @@ function CreateListing() {
                 <StyledUploadButton variant="outlined" startIcon={<FileUploadOutlinedIcon />} onClick={handleUploadButtonClick}>
                   Upload your images
                 </StyledUploadButton>
-                <p style={{color: fileUploadText === tooManyFileString ? 'red' : 'gray'}}>{fileUploadText}</p>
+                <p style={{color: fileUploadText === tooManyFilesString ? 'red' : 'gray'}}>{fileUploadText}</p>
               </div>
               <input type="file" ref={hiddenFileInput} id="hidden-input" multiple onChange={imageListener} accept=".jpg,.png" style={{display: 'none'}}/>
               <StyledNegativeButton type="button" variant="contained" id="cancel" onClick={cancelNewListing}>Cancel</StyledNegativeButton>

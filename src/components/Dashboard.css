@@ -1,6 +1,28 @@
+.dashboard-container {
+    overflow: hidden;
+}
+
 .grid-map-listings-columns {
-    margin: 2vmin;
     display: grid;
     gap: 1rem;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    height: 90vh;
+}
+
+.grid-listings {
+    height: 90vh;
+}
+
+.options {
+    display: grid;
+    margin: 0px 2vmin;
+    gap: 1rem;
+    grid-template-areas: 
+        'toggle . . . .';
+    place-items: left;
+    height: 4vh;
+}
+
+#toggle {
+    grid-area: toggle;
 }

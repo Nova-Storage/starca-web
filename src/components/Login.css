@@ -27,6 +27,6 @@ table {
 }
 
 .carousel .slide img {
-  height: 95vh;  /* change this to whatever you want */
+  height: 95vh;
   width: auto;
 }

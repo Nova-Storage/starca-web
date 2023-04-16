@@ -2,6 +2,7 @@ import './Dashboard.css';
 import React, {useState, useEffect} from 'react'
 import Map from './Map.js'
 import { Switch } from '@mui/material';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Geocode from 'react-geocode'
 import Listings from './Listings.js';
 
@@ -20,7 +21,7 @@ function Dashboard() {
   }
 
   useEffect(() => {
-      fetch('https://starcaserver.com/get-listings', {
+      fetch(`${process.env.REACT_APP_SERVER_URL}get-listings`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -37,21 +38,22 @@ function Dashboard() {
 
   if (!showMap) {
     return (
-    <div>
-      <Switch
-        checked={showMap}
-        onChange={toggleMap}
-      />
+    <div className='dashboard-container'>
+      <div className='options'>
+        <FormControlLabel control={<Switch id='toggle' checked={showMap} onChange={toggleMap} />} label="Map" />
+      </div>
+      <div className='grid-listings'>
+        <Listings listings={ listings } listingColumnValue={2}/>
+      </div>
     </div>
     )
   }
   else {
     return (
-      <div>
-        <Switch
-          checked={showMap}
-          onChange={toggleMap}
-        />
+      <div className='dashboard-container'>
+        <div className='options'>
+          <FormControlLabel control={<Switch id='toggle' checked={showMap} onChange={toggleMap} />} label="Map" />
+        </div>
         <div className="grid-map-listings-columns">
         {/* <Autocomplete   
           apiKey={`${process.env.REACT_APP_MAP_ID}`}
