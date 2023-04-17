@@ -13,6 +13,10 @@
     height: 90vh;
 }
 
+.listings {
+    overflow-y: scroll;
+}
+
 .options {
     display: grid;
     margin: 0px 2vmin;

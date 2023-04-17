@@ -42,7 +42,7 @@ function Dashboard() {
       <div className='options'>
         <FormControlLabel control={<Switch id='toggle' checked={showMap} onChange={toggleMap} />} label="Map" />
       </div>
-      <div className='grid-listings'>
+      <div className='grid-listings listings'>
         <Listings listings={ listings } listingColumnValue={2}/>
       </div>
     </div>
@@ -62,7 +62,9 @@ function Dashboard() {
         </Autocomplete> */}
           {/* <Map center={mapCenter}/> */}
           <Map listings={ listings }/>
-          <Listings listings={ listings }/>
+          <div className='listings'>
+          <Listings listings={ listings } />
+          </div>
         </div>
       </div>
       )

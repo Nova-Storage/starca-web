@@ -25,10 +25,22 @@ export default function AccountMenu(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logOutServer = event => {
+    
+    console.log("Logging out from server");
+    fetch(`${process.env.REACT_APP_SERVER_URL}logout`, {
+      method: 'GET'
+    })
+      .then(res => res.text())
+      .catch(error => console.log(error));
+  };
   
   const handleLogout = () => {
     setAnchorEl(null);
     sessionStorage.clear();
+    logOutServer();
+    localStorage.removeItem('ugid');
     props.authenticated();
     navigate('/');
   };
@@ -52,6 +64,11 @@ export default function AccountMenu(props) {
   const handleMessagesClick = () => {
     handleClose()
     navigate('/messages')
+  }
+
+  const handleRequestsClick = () => {
+    handleClose()
+    navigate('/requests')
   }
   
   return (
@@ -124,7 +141,7 @@ export default function AccountMenu(props) {
           </ListItemIcon>
           My Listings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleRequestsClick}>
           <ListItemIcon>
             <RecentActorsIcon fontSize="small" />
           </ListItemIcon>

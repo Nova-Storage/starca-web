@@ -1,0 +1,43 @@
+.item-request-container {
+    height: 100vh;
+    margin: 2%;
+}
+
+.item-request-grid {
+    display: grid;
+    padding: 1% 2%;
+    grid-template-columns: 5rem;
+    grid-template-areas:
+        'image title title title title'
+        '. message message message message'
+        '. cancel cancel submit submit';
+    align-items: center;
+    justify-items: start;
+}
+
+#request-image {
+    grid-area: image;
+}
+
+#request-message-title {
+    grid-area: title;
+    margin-left: 1%;
+}
+
+#request-message {
+    grid-area: message;
+}
+
+.request-cancel {
+    grid-area: cancel;
+    align-items: end;
+}
+
+.request-submit {
+    grid-area: submit;
+}
+
+/*
+#cancel, #submit {
+    align-items: center;
+}*/

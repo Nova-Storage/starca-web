@@ -3,7 +3,7 @@ import './App.css';
 import React, { useState } from "react";
 import { CgProfile } from 'react-icons/cg';
 import { MdMenu } from 'react-icons/md';
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, useLocation } from "react-router-dom";
 import Profile from './components/Profile.js';
 import Conversations from './components/Conversations.js';
 import Login from './components/Login.js';
@@ -14,14 +14,16 @@ import Listings from './components/Listings.js';
 import ListingDetail from './components/ListingDetail.js';
 import Footer from './components/Footer.js';
 import CreateListing from './components/CreateListing.js';
-import MyListings from './components/MyListings.js'
-import Message from './components/Message.js'
+import MyListings from './components/MyListings.js';
+import Message from './components/Message.js';
+import ItemRequest from './components/ItemRequest.js';
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword';
 
 function App() {
   
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //let location = useLocation();
   
   function authenticated(){
     setIsLoggedIn(!isLoggedIn);
@@ -49,7 +51,7 @@ function App() {
                 </li>
               </ul>
             </nav>
-            
+ 
             <Routes>
               <Route exact path="/" element={<Dashboard />}>
               </Route>
@@ -65,12 +67,15 @@ function App() {
               </Route>
               <Route exact path="/my-listings" element={<MyListings />}>
               </Route>
+              <Route exact path="/requests" element={<ItemRequest />}>
+              </Route>
               <Route exact path="/messages" element={<Message />}>
               </Route>
             </Routes>
           </div>
+          {console.log(window.location.pathname === '/')}
+          { window.location.pathname === '/' ? <Footer /> : <div></div> }
         </Router>
-        <Footer />
       </div>
       );
   }
@@ -106,9 +111,9 @@ function App() {
               <Route exact path="/resetPassword" element={<ResetPassword />}>
               </Route>
             </Routes>
+            <Footer />
           </div>
         </Router>
-        <Footer />
       </div>
     );
 }
