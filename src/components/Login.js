@@ -87,6 +87,7 @@ function Login(props) {
         if (json === "You Logged in.!"){
           props.authenticated();
           sessionStorage.setItem("email", event.target.email.value);
+          localStorage.setItem("isLoggedIn", true);
           navigate('/');
         }
         else {

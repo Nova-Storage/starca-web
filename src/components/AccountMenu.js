@@ -41,6 +41,7 @@ export default function AccountMenu(props) {
     sessionStorage.clear();
     logOutServer();
     localStorage.removeItem('ugid');
+    localStorage.removeItem("isLoggedIn");
     props.authenticated();
     navigate('/');
   };

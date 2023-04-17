@@ -15,7 +15,7 @@ function ItemRequest(props) {
         <Paper elevation={3}>
             <div className='item-request-grid'>
                 <img id='request-image' src={logo} height='50px' width='50px'/>
-                <h4 id='request-message-title'>{messageTitle}</h4>
+                <h4 id='request-message-title'>{props.requestTitle}</h4>
                 <p id='request-message' align="left">{messageContent}</p>
                 <div className='request-cancel'>
                 <StyledNegativeButton type="button" variant="contained" id="cancel" className='request-cancel'>Cancel</StyledNegativeButton>

@@ -16,13 +16,14 @@ import Footer from './components/Footer.js';
 import CreateListing from './components/CreateListing.js';
 import MyListings from './components/MyListings.js';
 import Message from './components/Message.js';
-import ItemRequest from './components/ItemRequest.js';
+import ListingRequests from './components/ListingRequests.js';
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword';
 
 function App() {
   
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn"));
+  console.log("State isLoggedIn: " + isLoggedIn);
   //let location = useLocation();
   
   function authenticated(){
@@ -67,7 +68,7 @@ function App() {
               </Route>
               <Route exact path="/my-listings" element={<MyListings />}>
               </Route>
-              <Route exact path="/requests" element={<ItemRequest />}>
+              <Route exact path="/requests" element={<ListingRequests />}>
               </Route>
               <Route exact path="/messages" element={<Message />}>
               </Route>
