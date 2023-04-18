@@ -14,10 +14,13 @@ import starcaLogo from '../images/starca-logo-icon.png';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import CircleIcon from '@mui/icons-material/Circle';
+import { useLocation } from 'react-router-dom'
+import { Snackbar, Alert } from '@mui/material'
 
 function Login(props) {
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showSnackbar, setShowSnackbar] = React.useState(false)
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -36,6 +39,20 @@ function Login(props) {
   
   const navigate = useNavigate();
   
+  // Access snackbar prop if we are being returned from Resetpassword Page
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.state) {
+      setShowSnackbar(location.state.showSnackbar)
+    }
+  
+    setTimeout(() => {
+      setShowSnackbar(false)
+    }, 3000)
+  }, [])
+  
+  
   const handleSignUp = event => {
     navigate('/register');
     event.preventDefault();
@@ -51,7 +68,7 @@ function Login(props) {
     
     console.log(event.target.email.value);
     console.log(event.target.password.value);
-    fetch('https://starcaserver.com/login', {
+    fetch(`http://localhost:3000/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -86,6 +103,15 @@ function Login(props) {
   return (
       <div className='login-grid-container'>
           <div>
+            {showSnackbar !== null?
+              <Snackbar 
+                    open={showSnackbar}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    autoHideDuration={3000}
+                >
+                    <Alert severity='success'>Password Reset! Please login again.</Alert>
+                </Snackbar>
+            : <></>}
           <h1 style={{marginTop: '20%'}}>Login</h1>
           <h2>Welcome back</h2>
           <p>Rent your space or declutter your place!</p>

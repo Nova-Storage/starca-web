@@ -9,7 +9,7 @@ export default function ForgotPassword() {
     const navigate = useNavigate()
 
     const resetPassword = event => {
-        fetch(`https://starcaserver.com/forgotPassword`, {
+        fetch(`http://localhost:3000/forgotPassword`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -39,8 +39,7 @@ export default function ForgotPassword() {
     return (
         <div className='login-grid-container'>
           <div>
-          <h1 style={{marginTop: '20%'}}>Reset password</h1>
-          <p>Rent your space or declutter your place!</p>
+          <h1 style={{marginTop: '20%'}}>Forgot Password</h1>
           <form onSubmit={resetPassword}>
             <table>
               <tr>
@@ -49,7 +48,7 @@ export default function ForgotPassword() {
                 </td>
               </tr>
             </table>
-            <StyledButton type="submit" variant="contained">Reset Password</StyledButton>
+            <StyledButton type="submit" variant="contained">Submit</StyledButton>
           </form>
           </div>
           </div>

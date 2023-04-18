@@ -17,6 +17,7 @@ import CreateListing from './components/CreateListing.js';
 import MyListings from './components/MyListings.js'
 import Message from './components/Message.js'
 import ForgotPassword from './components/ForgotPassword'
+import ResetPassword from './components/ResetPassword';
 
 function App() {
   
@@ -101,6 +102,8 @@ function App() {
               <Route exact path="/register" element={<Register />}>
               </Route>
               <Route exact path="/forgotPassword" element={<ForgotPassword />}>
+              </Route>
+              <Route exact path="/resetPassword" element={<ResetPassword />}>
               </Route>
             </Routes>
           </div>
