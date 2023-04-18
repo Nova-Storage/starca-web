@@ -5,6 +5,8 @@ import {
 } from 'react'
 import { Snackbar, Alert } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
+import './ResetPassword.css';
+
 
 export default function ResetPassword() {
 
@@ -113,8 +115,8 @@ export default function ResetPassword() {
     }
 
     return (
-        <div className='login-grid-container'>
-          <div>
+        <div className='reset-password-grid-container'>
+          <div className='reset-password-form'>
             <Snackbar 
             open={open}
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

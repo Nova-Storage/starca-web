@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import { StyledButton, LoginTextField} from './StyledMuiComponents.js';
 import { Snackbar, Alert } from '@mui/material'
+import './ForgotPassword.css';
 
 export default function ForgotPassword() {
 
@@ -48,27 +49,27 @@ export default function ForgotPassword() {
         }
 
     return (
-        <div className='login-grid-container'>
-          <div>
-          <h1 style={{marginTop: '20%'}}>Forgot Password</h1>
-          <Snackbar 
-            open={open}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            autoHideDuration={0}
-            >
-                <Alert severity='error'>There is no account with the provided email.</Alert>
-            </Snackbar>
-          <form onSubmit={resetPassword}>
-            <table>
-              <tr>
-                <td>
-                <LoginTextField id="email" label="Email" variant="outlined" required/>
-                </td>
-              </tr>
-            </table>
-            <StyledButton type="submit" variant="contained">Submit</StyledButton>
-          </form>
-          </div>
+        <div className='forgot-password-grid-container'>
+          <div className='forgot-password-form'>
+            <h1 style={{marginTop: '20%'}}>Forgot Password</h1>
+            <Snackbar 
+              open={open}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              autoHideDuration={0}
+              >
+                  <Alert severity='error'>There is no account with the provided email.</Alert>
+              </Snackbar>
+            <form onSubmit={resetPassword}>
+              <table>
+                <tr>
+                  <td>
+                  <LoginTextField id="email" label="Email" variant="outlined" required/>
+                  </td>
+                </tr>
+              </table>
+              <StyledButton type="submit" variant="contained">Submit</StyledButton>
+            </form>
+            </div>
           </div>
     )    
 }
