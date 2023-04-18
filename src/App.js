@@ -16,6 +16,7 @@ import Footer from './components/Footer.js';
 import CreateListing from './components/CreateListing.js';
 import MyListings from './components/MyListings.js'
 import Message from './components/Message.js'
+import ForgotPassword from './components/ForgotPassword'
 
 function App() {
   
@@ -98,6 +99,8 @@ function App() {
               <Route exact path="/login" element={<Login authenticated={authenticated} />}>
               </Route>
               <Route exact path="/register" element={<Register />}>
+              </Route>
+              <Route exact path="/forgotPassword" element={<ForgotPassword />}>
               </Route>
             </Routes>
           </div>

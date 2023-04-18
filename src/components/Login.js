@@ -40,6 +40,11 @@ function Login(props) {
     navigate('/register');
     event.preventDefault();
   }
+
+  const handleResetPassword = event => {
+    navigate('/forgotPassword')
+    event.preventDefault()
+  }
   
   
   const authenticateUser = event => {
@@ -119,6 +124,7 @@ function Login(props) {
             <StyledButton type="submit" variant="contained">Login</StyledButton>
           </form>
           <p>Don't have an account yet? <a className="register-link" onClick={handleSignUp}>Sign up</a></p>
+          <p>Forgot Password? <a className="register-link" onClick={handleResetPassword}>Reset password</a></p>
           </div>
           <div>
             <Carousel animationHandler='fade' autoPlay='true' interval='4000' infiniteLoop='true' showThumbs={false} showStatus={false} renderIndicator={(onClickHandler, isSelected, index, label) => {
