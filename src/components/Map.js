@@ -56,7 +56,7 @@ function Map({listings}) {
   // Fetch the coordinates for the border for a given city/zip code
   function getPaths() {
     if (state !== '' && zipCode !== '') {
-      fetch('https://starcaserver.com/boundary', {
+      fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/boundary`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

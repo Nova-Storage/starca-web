@@ -21,6 +21,7 @@ function Login(props) {
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showSnackbar, setShowSnackbar] = React.useState(false)
+  const [snackbarMessage, setSnackbarMessage] = React.useState('')
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -45,6 +46,7 @@ function Login(props) {
   useEffect(() => {
     if (location.state) {
       setShowSnackbar(location.state.showSnackbar)
+      setSnackbarMessage(location.state.message)
     }
   
     setTimeout(() => {
@@ -68,7 +70,7 @@ function Login(props) {
     
     console.log(event.target.email.value);
     console.log(event.target.password.value);
-    fetch(`http://localhost:3000/login`, {
+    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -109,7 +111,7 @@ function Login(props) {
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                     autoHideDuration={3000}
                 >
-                    <Alert severity='success'>Password Reset! Please login again.</Alert>
+                    <Alert severity='success'>{snackbarMessage}</Alert>
                 </Snackbar>
             : <></>}
           <h1 style={{marginTop: '20%'}}>Login</h1>

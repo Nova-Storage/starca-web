@@ -60,7 +60,33 @@ export default function ResetPassword() {
         }
         // Passwords match, allow reset
         else {
-            navigate('/login', { state: { showSnackbar: true } })
+            fetch(`http://localhost:3000/resetPassword`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    token: token,
+                    passwrd: newPassword
+                })
+                })
+                .then(res => res.json())
+                .then(json => {
+                    // if (json['message'] === "There is no account with the provided email.") {
+                    //     // Do whatever
+                    // }
+                    // else {
+                    //     // Do whatever
+                    // }
+                })
+                .catch(error => {
+                    console.log(error)
+            });
+            navigate('/login', { state: { 
+                showSnackbar: true,
+                message: `Password reset! Please login again.`
+            }})
         }
         event.preventDefault()
     }
@@ -94,7 +120,7 @@ export default function ResetPassword() {
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             autoHideDuration={0}
             >
-                <Alert severity='error'>Submission failed. Passwords do not match!</Alert>
+                <Alert severity='error'>Passwords do not match!</Alert>
             </Snackbar>
             <h1 style={{marginTop: '20%'}}>Update password</h1>
             <form onSubmit={updatePassword}>
@@ -102,19 +128,19 @@ export default function ResetPassword() {
                     <tbody>
                         <tr>
                             <td>
-                                <LoginTextField id="newPassword" label="New Password" variant="outlined" onChange={handleNewPasswordChange}/>
+                                <LoginTextField id="newPassword" label="New Password" variant="outlined" required onChange={handleNewPasswordChange}/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <LoginTextField id="confirmPassword" label="Confirm Password" variant="outlined" onChange={handleConfirmPasswordChange}/>
+                                <LoginTextField id="confirmPassword" label="Confirm Password" variant="outlined" required onChange={handleConfirmPasswordChange}/>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                     <StyledButton type="submit" variant="contained">Update Password</StyledButton>
                 </form>
-                {passwordMatch ? <p></p> : <p>Passwords Do Not Match</p>}
+                {passwordMatch ? <p></p> : <p style={{color: 'red'}}>Passwords Do Not Match</p>}
             </div>
           </div>
     ) 

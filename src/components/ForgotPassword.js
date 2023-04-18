@@ -1,15 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import { StyledButton, LoginTextField} from './StyledMuiComponents.js';
+import { Snackbar, Alert } from '@mui/material'
 
 export default function ForgotPassword() {
 
-    const [invalidEmail, setInvalidEmail] = useState(false)
+    // const [invalidEmail, setInvalidEmail] = useState(false)
+    const [open, setOpen] = useState(false)
+    const [message, setMessage] = useState('')
 
     const navigate = useNavigate()
 
     const resetPassword = event => {
-        fetch(`http://localhost:3000/forgotPassword`, {
+        fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/forgotPassword`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -18,15 +21,23 @@ export default function ForgotPassword() {
                 email: event.target.email.value,
               })
             })
-            .then(res => res.text())
+            .then(res => res.json())
             .then(json => {
-                // console.log(json)
-                if (json === "An account with that email does not exist.") {
-                    setInvalidEmail(!invalidEmail)
-                    console.log("Invalid Email")
+                if (json['message'] === "There is no account with the provided email.") {
+                  // Update email to invalid
+                  // setInvalidEmail(!invalidEmail)
+                  // Display snackbar for 3 seconds
+                  setOpen(true)
+                  setTimeout(() => {
+                      setOpen(false)
+                  }, 3000)
                 }
                 else {
-                    // Send email to to user to reset password.
+                  // Email to to user to reset password.
+                  navigate('/login', { state: { 
+                    showSnackbar: true, 
+                    message: `An email was sent to ${event.target.email.value}!`  
+                  }})
                 }
             })
             .catch(error => {
@@ -40,11 +51,18 @@ export default function ForgotPassword() {
         <div className='login-grid-container'>
           <div>
           <h1 style={{marginTop: '20%'}}>Forgot Password</h1>
+          <Snackbar 
+            open={open}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            autoHideDuration={0}
+            >
+                <Alert severity='error'>There is no account with the provided email.</Alert>
+            </Snackbar>
           <form onSubmit={resetPassword}>
             <table>
               <tr>
                 <td>
-                <LoginTextField id="email" label="Email" variant="outlined" />
+                <LoginTextField id="email" label="Email" variant="outlined" required/>
                 </td>
               </tr>
             </table>
