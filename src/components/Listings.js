@@ -1,4 +1,5 @@
 import './Listings.css';
+import { useEffect, useState } from 'react';
 import ListingsData from './data-30.json';
 import ItemListing from './ItemListing.js';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -7,8 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 function Listings(props) {
 
-    //TODO: this will be replaced by state variable once I can call data from DB
-    const listings = ListingsData.listings;
     const navigate = useNavigate();
     
     //TODO: Ellipsize the title
@@ -16,30 +15,30 @@ function Listings(props) {
     return (
         <div className="listings">
             <Grid container rowSpacing={2} columnSpacing={1}>
-                {listings.slice(0,9).map(listing => {
+                {props.listings.slice(0,9).map(listing => {
                 return(
                     <Grid xs={4} onClick={ () => { 
                         navigate('/detail', { state: {
-                            listingTitle: listing.listingTitle,
-                            listingDescription: listing.listingDescription,
-                            listingPrice: listing.listingPrice,
-                            listingAddress: listing.listingAddres,
-                            listingCity: listing.listingCity,
-                            listingState: listing.listingState,
-                            listingZip: listing.listingZip,
-                            listingAmenities: listing.amenities
+                            listingTitle: listing.ltitle,
+                            listingDescription: listing.ldescr,
+                            listingPrice: listing.lprice,
+                            listingAddress: listing.lstreet,
+                            listingCity: listing.lcity,
+                            listingState: listing.lstate,
+                            listingZip: listing.lzip,
+                            listingAmenities: ['Security Cameras, ', 'Biometrics, ', 'Wheelchair Accessible']
                         } });
                         
                     }}>
                         <ItemListing 
-                            listingTitle={ listing.listingTitle }
-                            listingDescription={ listing.listingDescription }
-                            listingPrice={ listing.listingPrice }
-                            listingAddress={ listing.listingAddress }
-                            listingCity={ listing.listingCity }
-                            listingState={ listing.listingState } 
-                            listingZip={ listing.listingZip }
-                            listingAmenities= {listing.amenities }/>
+                            listingTitle={ listing.ltitle }
+                            listingDescription={ listing.ldescr }
+                            listingPrice={ listing.lprice }
+                            listingAddress={ listing.lstreet }
+                            listingCity={ listing.lcity }
+                            listingState={ listing.lstate } 
+                            listingZip={ listing.lzip }
+                            listingAmenities= { ['Security Cameras, ', 'Biometrics, ', 'Wheelchair Accessible'] }/>
                     </Grid>
                     );
                 })}

@@ -17,7 +17,7 @@ function Message() {
     const [userInfo, setUserInfo] = useState()
 
     const getUserInfo = () => {
-        fetch('http://starcaserver.com/get-user-names', {
+        fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/get-user-names`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

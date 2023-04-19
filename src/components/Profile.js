@@ -3,17 +3,19 @@ import "./Profile.css";
 import image1 from './image1.jpeg';
 import image2 from './image2.jpeg';
 import image3 from './image3.jpeg';
-import image4 from './image4.jpeg';
 import profilepic from './profile.jpeg'
+import image4 from './image4.jpeg'
 
 const Profile = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
-  const [name, setName] = useState("Tej Patel");
+  const [name, setName] = useState("Christian");
   const [bio, setBio] = useState("my bio here.");
   const [rating] = useState(4); // added rating state
+  const [showListings, setShowListings] = useState(false);
 
-  const images = useMemo(() => [image1, image2, image3, image4], []);
+
+  const images = useMemo(() => [image1, image2, image3], []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,7 +35,9 @@ const Profile = () => {
   const handleSaveChanges = () => {
     setShowPopup(false);
   }
-
+  const handleBackHome = () => {
+    setShowListings(false)
+  }
   const dotIndicators = images.map((image, index) => (
     <span
       key={index}
@@ -47,56 +51,122 @@ const Profile = () => {
     const fullStars = Array.from(Array(rating), (_, i) => (
       <span key={i} className="star full">&#9733;</span>
     ));
-    const emptyStars = Array.from(Array(4 - rating), (_, i) => (
+    const emptyStars = Array.from(Array(5 - rating), (_, i) => (
       <span key={i} className="star empty">&#9734;</span>
     ));
     return [...fullStars, ...emptyStars];
   }
-
-  return (
-    <div className="grid-container">
-      <div className="personal">
-        <div className="profile-picture">
-          <img src={profilepic} alt="Profile" />
-        </div>
-        <div className="star-ratings">{renderStarRatings()}</div> {/* render star ratings */}
-        <div className="profile-info">
-          <h2>{name}</h2>
-          <p>{bio}</p>
-          <button className="edit-profile-button" onClick={() => setShowPopup(true)}>Edit Profile</button>
-        </div>
-      </div>
-     
-      <div className="slideshow">
-        <img src={images[currentImage]} alt="Slideshow" />
-        <div className="dot-indicators">{dotIndicators}</div>
-      </div>
-
-      <div className="reviews">
-       
-        <p>Christian - Rented Garage located in Newark</p>
-        <p>"I rented the location located in Newark the owner was really nice and helpfull, I would definetly recommend this garage."</p>
-        <p>Jaimeen - Rented garage located in Brooklyn</p>
-        <p>"Horrible experience I went to the garage and there was no we to access it i called and emailed the owner but no one answered"</p>
-        <p>Mohamad - Rented garage located in Jersey City</p>
-        <p>"Nice place"</p>
-   
-      </div>
-
-      {showPopup && 
-        <div className="popup">
-          <div className="popup-content">
-            <h2>Edit Profile</h2>
-            <label htmlFor="name">Name:</label>
-            <input type="text" id="name" value={name} onChange={handleNameChange} />
-            <label htmlFor="bio">Bio:</label>
-            <textarea id="bio" value={bio} onChange={handleBioChange}></textarea>
-            <button onClick={handleSaveChanges}>Save Changes</button>
+  const toggleListings = () => {
+    setShowListings(!showListings);
+  }
+  const listings = [
+    {
+      image: image1,
+      address: 'Newark ,NJ',
+      price: '$200',
+    },
+    {
+      image: image2,
+      address: 'Linden, NJ',
+      price: '$300',
+    },
+    {
+      image: image3,
+      address: 'Elizabeth ,NJ',
+      price: '$100',
+    },
+  ];
+  const ListingsTab = ({ listings }) => (
+    <div className="listings-tab">
+      {listings.map((listing, index) => (
+        <div key={index} className="listing">
+          <img src={listing.image} alt={listing.address} />
+          <div className="listing-info">
+            <p className="price">{listing.price}</p>
+            <p className="address">{listing.address}</p>
+            <button className="request-button">Request</button>
           </div>
         </div>
-      }
+      ))}
     </div>
   );
-};
+
+  return (
+    <div>
+
+      {showListings ? (
+        <div>
+          <h2 style={
+            {
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}>My Listings <button style={
+              {
+                marginLeft: "200px",
+                background: "green"
+              }} onClick={handleBackHome}>Home</button></h2>
+          <ListingsTab listings={listings} />
+          <div>
+            <h2>Current Rentals</h2>
+            <div >
+          <img src={image4} alt={''} />
+          <div className="listing-info">
+            <p className="price">{"$100"}</p>
+            <p className="address">{"Newark ,NJ"}</p>
+            <button className="end-rental-button">End rental</button>
+          </div>
+        </div>
+          </div>
+        </div>
+
+      ) : (
+        <div className="grid-container">
+
+          <div className="personal">
+            <div className="profile-picture">
+              <img src={profilepic} alt="Profile" />
+            </div>
+            <div className="star-ratings">{renderStarRatings()}</div> {/* render star ratings */}
+            <div className="profile-info">
+              <h2>{name}</h2>
+              <p>{bio}</p>
+              <button className="edit-profile-button" onClick={() => setShowPopup(true)}>Edit Profile</button>
+            </div>
+          </div>
+
+          {showPopup ? (
+
+            <div className="slideshow">
+              <h2>Edit Profile</h2>
+              <label htmlFor="name">Name:</label>
+              <input type="text" id="name" value={name} onChange={handleNameChange} />
+              <label htmlFor="bio">Bio:</label>
+              <textarea id="bio" value={bio} onChange={handleBioChange}></textarea>
+              <button onClick={handleSaveChanges}>Save Changes</button>
+            </div>
+
+          ) : (
+            <>
+              <div className="slideshow">
+                <img src={images[currentImage]} alt="Slideshow" />
+                <div className="dot-indicators">{dotIndicators}</div>
+                <button className="review-listing-button " onClick={toggleListings}>View Listings</button>
+              </div>
+
+              <div className="reviews">
+                <h2>Tejkumar Patel</h2>
+                <p> I was very impressed with the facility's cleanliness and security measures. </p>
+                <h2>Jaimeen</h2>
+                 <p> The unit itself was spacious and easily accessible, making it simple for me to move my belongings in and out.</p>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+
+  );
+}
 
 export default Profile;

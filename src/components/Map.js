@@ -2,7 +2,7 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import { GoogleMap, useJsApiLoader, Polygon } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, Circle } from '@react-google-maps/api';
 import { CircularProgress } from '@mui/material';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode'
@@ -42,8 +42,7 @@ const mapOptions = {
 }
 
 // Map component. Displays a Google Map 
-function Map() {
-
+function Map({listings}) {
   const [mapCenter, setCenter] = useState({
     lat: 40.7484,
     lng: -73.9857
@@ -52,11 +51,12 @@ function Map() {
   const [zipCode, setZipCode] = useState('')
   const [state, setState] = useState('')
   const [paths, setPaths] = useState([]) // Array of arrays, each contains a LatLng object of cooridinates
+  const [listingCoords, setListingCoords] = useState([])
 
   // Fetch the coordinates for the border for a given city/zip code
   function getPaths() {
     if (state !== '' && zipCode !== '') {
-      fetch('https://starcaserver.com/boundary', {
+      fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/boundary`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -128,6 +128,37 @@ function Map() {
     })
   }
 
+  function getListingCoords() {
+    var arr = []
+
+    for (let i = 0; i < listings.length; i++) {
+      let s = `${listings[i].lcity}, ${listings[i].lstate} ${listings[i].lzip}, ${listings[i].lcountry}`
+      Geocode.fromAddress(s).then( (response) => {
+        arr.push({
+          lat: response.results[0].geometry.location.lat,
+          lng: response.results[0].geometry.location.lng,
+          id: listings[i].lid
+        })
+        setListingCoords(arr)
+      },
+      (error) => {
+        console.error(error)
+      })
+    }
+  }
+
+  // Hook that updates the map center to be current location. Happens only on initial render. Updates the state and zip code
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setCenter({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      })
+
+      setZipAndStateFromLatLng(position.coords.latitude, position.coords.longitude)
+    })
+  }, [])
+
   // Update the zip code and state for the new map center.
   useEffect(() => {
     if (mapCenter !== undefined) {
@@ -138,19 +169,12 @@ function Map() {
   useEffect(() => {
     getPaths()
   }, [zipCode, state])
-  
-  // Hook that updates the map center to be current location. Happens only on initial render. Updates the state and zip code
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setCenter({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      })
 
-      setZipAndStateFromLatLng(position.coords.latitude, position.coords.longitude)
-      
-    })
-  }, [])
+  useEffect(() => {
+    if (listings.length !== 0) {
+      getListingCoords()
+    }
+  }, [listings])
 
   // Load the Google Map using the useJsApiLoader hook
   const {isLoaded} = useJsApiLoader({
@@ -182,12 +206,32 @@ function Map() {
         mapContainerStyle={containerStyle}
         options={mapOptions}
       >
-        {paths.length !== 0 &&
-          <Border 
-            paths={paths}
-          >
-          </Border>
-        }
+        <div>
+          {paths.length !== 0 &&
+            <Border 
+              paths={paths}
+            >
+            </Border>
+          }
+
+
+          {
+          /* Insert listings from dashboard as markers onto the map: */
+            listingCoords.map( marker => {
+              return(
+                <Marker 
+                  position={{
+                    lat: marker.lat,
+                    lng: marker.lng
+                  }}
+                  key={marker.id}
+                  visible={true}
+                />
+              )
+            })
+          }
+
+        </div>
       </GoogleMap>
     </div>
   )
