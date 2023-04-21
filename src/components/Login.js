@@ -75,6 +75,7 @@ function Login(props) {
     // fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/login`, {
     fetch('http://localhost:3000/login', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -89,6 +90,9 @@ function Login(props) {
         if (json['message'] === "You Logged In!"){
           props.authenticated();
           sessionStorage.setItem("email", event.target.email.value);
+          // For persistence temporarily (eventually take advantage of jwt)
+          localStorage.setItem("isLoggedIn", true);
+
           sessionStorage.setItem("userID", json['userID']);
 
 
@@ -98,7 +102,6 @@ function Login(props) {
             setShowStripeAlert(true)
             setStripeLink(json['stripe_link_url'])
           }
-
           else navigate('/');
         }
         else {

@@ -13,14 +13,14 @@ import StorageUnitOutline from '../images/StorageUnitOutline.jpg';
 
 
 function ItemListing(props) {
-        
+        // StorageUnitOutline
     return (
         <Card sx={{ maxWidth: 345 }}>
           <CardActionArea>
             <CardMedia
               component="img"
               height="140"
-              image={ StorageUnitOutline }
+              image={ props.listingImages ? props.listingImages[0] :  StorageUnitOutline }
               alt="storage unit outline"
             />
             <CardContent>

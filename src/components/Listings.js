@@ -4,6 +4,7 @@ import ListingsData from './data-30.json';
 import ItemListing from './ItemListing.js';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
 function Listings(props) {
@@ -17,10 +18,11 @@ function Listings(props) {
             <Grid container rowSpacing={2} columnSpacing={1}>
                 {props.listings.map(listing => {
                 return(
-                    <Grid xs={4} onClick={ () => { 
+                    <Grid xs={props.listingColumnValue} onClick={ () => { 
                         navigate('/detail', { state: {
                             ownerID: listing.luserid,
                             listingID: listing.lid,
+                            listingImages:  listing.imageUrls,
                             listingTitle: listing.ltitle,
                             listingDescription: listing.ldescr,
                             listingPrice: listing.lprice,
@@ -33,6 +35,7 @@ function Listings(props) {
                         
                     }}>
                         <ItemListing 
+                            listingImages = { listing.imageUrls ? listing.imageUrls : false }
                             listingTitle={ listing.ltitle }
                             listingDescription={ listing.ldescr }
                             listingPrice={ listing.lprice }
@@ -48,6 +51,13 @@ function Listings(props) {
         </div>
         );
 }
-    
 
+Listings.propTypes = {
+    listingColumnValue: PropTypes.number
+}
+
+Listings.defaultProps = {
+    listingColumnValue: 4
+  };
+    
 export default Listings;

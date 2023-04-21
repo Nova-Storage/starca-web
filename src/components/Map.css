@@ -1,0 +1,15 @@
+.maps-container {
+    display: grid;
+    grid-template-areas: 
+        '. zipinput zipinput .'
+        'map map map map';
+    grid-template-rows: 2rem 1fr;
+}
+
+#zipinput {
+    grid-area: zipinput;
+}
+
+#map {
+    grid-area: map;
+}

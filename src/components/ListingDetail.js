@@ -7,15 +7,22 @@ import ImageListItem from '@mui/material/ImageListItem';
 import { useState } from  'react';
 import { StyledButton } from './StyledMuiComponents.js';
 import ItemReview  from './ItemReview.js';
+import { Storage } from '@mui/icons-material';
 import { loadStripe } from '@stripe/stripe-js';
 
 
 function ListingDetail(props) {
     
     const { state } = useLocation();
-    const {ownerID, listingID, listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip, listingAmenities} = state;
 
-    const [image, setImage] = useState("https://images.unsplash.com/photo-1551963831-b3b1ca40c98e");
+    const { ownerID, listingID, listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip, listingAmenities} = state;
+
+    var { listingImages } = state;
+    if (listingImages == null) {
+        listingImages = [StorageUnitOutline, StorageUnitOutline, StorageUnitOutline, StorageUnitOutline];
+    }
+
+    const [image, setImage] = useState(listingImages[0]);
 
     const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
@@ -99,11 +106,11 @@ function ListingDetail(props) {
       <div>
         <div className="grid-even-columns">
             <ImageList sx={{ width: 150, height: 300, margin: 0}} cols={1} rowHeight={105}>
-              {itemData.map((item) => (
-                <ImageListItem key={item.img} onClick={() => handleImageClick(item.img)} className='image-list-item'>
+              {listingImages.map((item) => (
+                <ImageListItem key={item} onClick={() => handleImageClick(item)} className='image-list-item'>
                   <img
-                    src={`${item.img}?w=100&h=100&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
+                    src={`${item}`}
+                    srcSet={`${item}`}
                     alt={item.title}
                     loading="lazy"
                   />

@@ -1,3 +1,4 @@
+import './Map.css';
 import React, {
   useState,
   useEffect
@@ -17,14 +18,11 @@ const lib = ['places']
 
 // Styling for the map
 const containerStyle = {
-  width: '40vw',
-  height: '89vh',
+  width: '100%',
+  height: '99%',
   position: 'fixed',
   overflow: 'hidden',
-  marginTop: '1%',
-  borderRadius: '10px',
-  marginLeft: '2vmin',
-  border: '1px solid black'
+  marginTop: '1%'
 };
 
 // Search Box Autocomplete options
@@ -189,18 +187,20 @@ function Map({listings}) {
 
   // Map done loading, display page contents
   return (
-    <div>
-      <h2>You are currently in zip code {zipCode}</h2>
-        <Autocomplete   
+    <div className='maps-container'>
+        <Autocomplete
+          id='zipinput'   
           apiKey={`${process.env.REACT_APP_MAP_ID}`}
           options={searchOptions}
+          placeholder={zipCode}
           onPlaceSelected={(place) => {
             setCenter(() => getCoords(place))
             setStateFromSearch(place)
           }}
         > 
         </Autocomplete>
-      <GoogleMap 
+      <GoogleMap
+        id='map'
         center={mapCenter}
         zoom={14} 
         mapContainerStyle={containerStyle}
