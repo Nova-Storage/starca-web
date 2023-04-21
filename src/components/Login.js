@@ -72,8 +72,7 @@ function Login(props) {
     
     console.log(event.target.email.value);
     console.log(event.target.password.value);
-    // fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/login`, {
-    fetch('http://localhost:3000/login', {
+    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/login`, {
       method: 'POST',
       credentials: 'include',
       headers: {
