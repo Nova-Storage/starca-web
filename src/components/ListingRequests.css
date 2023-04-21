@@ -1,0 +1,5 @@
+.listing-requests-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 2% 15%;
+}

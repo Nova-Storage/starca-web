@@ -1,52 +1,60 @@
 .create-listing-container {
     min-height: 100vh;
     margin-top: 2%;
+    margin: 0% 5%;
 }
 
 .create-listing-title {
-    margin-left: 5%;
     text-align: left;
 }
 
-#title {
+/* Using . selector instead of # because mui components do not respond to being selected by id using # */
+.title {
     grid-area: title;
 }
 
-#street {
+.street {
     grid-area: street;
 }
 
-#description {
+.description {
     grid-area: descr;
 }
 
-#city {
+.city {
     grid-area: city;
 }
 
-#length {
+.length {
     grid-area: length;
 }
 
-#width {
+.width {
     grid-area: width;
 }
 
-#height {
+.height {
     grid-area: height;
 }
 
-#state {
+.state {
     grid-area: state;
 }
 
-#zipcode {
+.zipcode {
     grid-area: zipcode;
 }
 
-/* Using . instead of # because mui components do not respond to being selected by id using #.  */
 .price {
     grid-area: price;
+}
+
+.country {
+    grid-area: country;
+}
+
+.dimensions {
+    grid-area: dimensions;
 }
 
 #images {
@@ -81,23 +89,22 @@
     display: grid;
     grid-auto-columns: 1fr;
     grid-auto-rows: 1fr;
-    gap: 0.2rem;
+    gap: 1rem;
     grid-template-areas: 
-        'title title . street'
-        'descr descr . city'
-        'descr descr . state'
-        'length width height zipcode'
-        'hidden-input . . price'
+        'title title street street'
+        'descr descr city state'
+        'descr descr country zipcode'
+        'dimensions dimensions hidden-input price'
         'cameras climate biometrics wheelchair'
         'images images images images'
         'cancel cancel submit submit';
     place-items: center;
-    padding: 0% 5%;
+    padding: 2% 2%;
 }
 
 
-.grid-col-span3 {
-    grid-column: span 3;
+.grid-col-span2 {
+    grid-column: span 2;
 }
 
 .grid-row-span2 {

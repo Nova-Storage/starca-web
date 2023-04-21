@@ -2,13 +2,12 @@ import './Footer.css';
 import React from 'react';
 import Register from './Register';
 import Dashboard from './Dashboard';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 //TODO: Get register to link to registration page
 function Footer() {
     return (
         <div className='footer-container'>
-            <Router>
             <div>
                 <h2 className='footer-link-headers'>Rent your place or free up space </h2>
                 <p className='footer-link-headers' style={{'margin-top': '8px'}}>Hassle free listing/rent management</p>
@@ -43,7 +42,6 @@ function Footer() {
                 </div>
             </div>
             
-            </Router>
         </div>
     )
 }

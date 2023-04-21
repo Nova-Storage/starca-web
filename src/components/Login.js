@@ -72,6 +72,7 @@ function Login(props) {
     console.log(event.target.password.value);
     fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/login`, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -87,6 +88,8 @@ function Login(props) {
         if (json === "You Logged in.!"){
           props.authenticated();
           sessionStorage.setItem("email", event.target.email.value);
+          // For persistence temporarily (eventually take advantage of jwt)
+          localStorage.setItem("isLoggedIn", true);
           navigate('/');
         }
         else {
