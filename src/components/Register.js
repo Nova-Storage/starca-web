@@ -8,7 +8,7 @@ function Register(props) {
   
   const handleRegisterSubmit = event => {
     
-    fetch('http://localhost:3000/register', {
+    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -21,7 +21,7 @@ function Dashboard() {
   }
 
   useEffect(() => {
-      fetch(`${process.env.REACT_APP_SERVER_URL}get-listings`, {
+      fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/get-listings`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',

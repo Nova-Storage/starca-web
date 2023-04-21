@@ -29,7 +29,7 @@ export default function AccountMenu(props) {
   const logOutServer = event => {
     
     console.log("Logging out from server");
-    fetch(`${process.env.REACT_APP_SERVER_URL}logout`, {
+    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/logout`, {
       method: 'GET',
       credentials: 'include'
     })

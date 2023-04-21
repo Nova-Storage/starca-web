@@ -101,7 +101,7 @@ function CreateListing() {
       listingsData.append('files', image);
     }
     
-    fetch(`${process.env.REACT_APP_SERVER_URL}listing`, {
+    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/listing`, {
       method: 'POST',
       credentials: 'include',
       body: listingsData
