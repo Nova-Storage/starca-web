@@ -1,5 +1,5 @@
 import './ListingDetail.css';
-import {useLocation} from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import CardMedia from '@mui/material/CardMedia';
 import StorageUnitOutline from '../images/StorageUnitOutline.jpg';
 import ImageList from '@mui/material/ImageList';
@@ -8,12 +8,14 @@ import { useState } from  'react';
 import { StyledButton } from './StyledMuiComponents.js';
 import ItemReview  from './ItemReview.js';
 import { Storage } from '@mui/icons-material';
+import { loadStripe } from '@stripe/stripe-js';
 
 
 function ListingDetail(props) {
     
     const { state } = useLocation();
-    const { listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip, listingAmenities} = state;
+
+    const { ownerID, listingID, listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip, listingAmenities} = state;
 
     var { listingImages } = state;
     if (listingImages == null) {
@@ -22,12 +24,42 @@ function ListingDetail(props) {
 
     const [image, setImage] = useState(listingImages[0]);
 
+    const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+
     const handleImageClick = event => {
       console.log("Event: " + event);
       setImage(event);
     }
 
+    const navigate = useNavigate()
+
+    const handlePayment = () => {
+      fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          lid: listingID,
+          ownerID: ownerID,
+          renterID: sessionStorage.getItem('userID')
+        })
+      })
+        .then(res => res.json())
+        .then(json => {
+          console.log(json)
+          if (json['message'] === 'Checkout Link Created') {
+            window.open(json['checkout_link'], '_self')
+
+          }
+        })
+        .catch(error => {
+          console.log("Error Creating Checkout Link")
+        })
+    } 
+
     async function handleRequestClick() {
+
       fetch(`https://api-${process.env.REACT_APP_SENDBIRD_ID}.sendbird.com/v3/group_channels`, {
       method: 'POST',
       headers: {
@@ -65,6 +97,8 @@ function ListingDetail(props) {
       .catch(error => {
         console.log("Error Creating Channel")
       })
+
+      navigate('/payment')
     }
     
     return (
@@ -94,6 +128,7 @@ function ListingDetail(props) {
             </div>
             <div className="grid-listing-description">
               <h2> { listingPrice } </h2>
+              <StyledButton type="submit" variant="contained" onClick={() => handlePayment()}>Pay For Listing</StyledButton>
               <StyledButton type="submit" variant="contained" onClick={() => handleRequestClick()}>Request Listing</StyledButton>
               <p> { listingDescription } </p>
             </div>

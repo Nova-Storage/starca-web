@@ -20,6 +20,8 @@ function Listings(props) {
                 return(
                     <Grid xs={props.listingColumnValue} onClick={ () => { 
                         navigate('/detail', { state: {
+                            ownerID: listing.luserid,
+                            listingID: listing.lid,
                             listingImages:  listing.imageUrls,
                             listingTitle: listing.ltitle,
                             listingDescription: listing.ldescr,
@@ -28,7 +30,7 @@ function Listings(props) {
                             listingCity: listing.lcity,
                             listingState: listing.lstate,
                             listingZip: listing.lzip,
-                            listingAmenities: ['Security Cameras, ', 'Biometrics, ', 'Wheelchair Accessible']
+                            listingAmenities: ['Security Cameras, ', 'Biometrics, ', 'Wheelchair Accessible'],
                         } });
                         
                     }}>

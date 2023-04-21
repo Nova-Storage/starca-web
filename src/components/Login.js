@@ -1,5 +1,5 @@
 import './Login.css';
-import React, { useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import CircleIcon from '@mui/icons-material/Circle';
 import { useLocation } from 'react-router-dom'
-import { Snackbar, Alert } from '@mui/material'
+import { Snackbar, Alert, Dialog, DialogActions, DialogTitle, Button, Typography, DialogContent } from '@mui/material'
 
 function Login(props) {
 
@@ -43,6 +43,9 @@ function Login(props) {
   // Access snackbar prop if we are being returned from Resetpassword Page
   const location = useLocation()
 
+  const [showStripeAlert, setShowStripeAlert] = useState(false)
+  const [stripeLink, setStripeLink] = useState('')
+
   useEffect(() => {
     if (location.state) {
       setShowSnackbar(location.state.showSnackbar)
@@ -65,12 +68,12 @@ function Login(props) {
     event.preventDefault()
   }
   
-  
   const authenticateUser = event => {
     
     console.log(event.target.email.value);
     console.log(event.target.password.value);
-    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/login`, {
+    // fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/login`, {
+    fetch('http://localhost:3000/login', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -81,16 +84,25 @@ function Login(props) {
         passwrd: event.target.password.value
       })
     })
-      .then(res => res.text()) //Change from text to json
+      .then(res => res.json()) //Change from text to json
       .then(json => {
-        console.log(json)
         // Get the user's information if authenticated successfully
-        if (json === "You Logged in.!"){
+        if (json['message'] === "You Logged In!"){
           props.authenticated();
           sessionStorage.setItem("email", event.target.email.value);
           // For persistence temporarily (eventually take advantage of jwt)
           localStorage.setItem("isLoggedIn", true);
-          navigate('/');
+
+          sessionStorage.setItem("userID", json['userID']);
+
+
+          // User did not complete their Stripe linking,
+          if (json['stripe_connected'] === false) {
+            // Prompt user to continue linking stripe to their account
+            setShowStripeAlert(true)
+            setStripeLink(json['stripe_link_url'])
+          }
+          else navigate('/');
         }
         else {
           //TODO: Make input fields red
@@ -108,6 +120,31 @@ function Login(props) {
   return (
       <div className='login-grid-container'>
           <div>
+          {showStripeAlert?
+              <Dialog
+                // onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={showStripeAlert}
+              >
+              <DialogTitle>
+                Your account is not linked with Stripe
+              </DialogTitle>
+              <DialogContent dividers>
+                <Typography gutterBottom>
+                  In order to continue using Starca, you must create a connected account with Stripe.
+                </Typography>
+                <Typography gutterBottom>
+                  Click the button below to get started.
+                </Typography>
+              </DialogContent>
+              <DialogActions>
+                <div>
+                  <Button autoFocus>
+                    <a href={stripeLink}>Link Stripe Account</a>
+                  </Button>
+                </div>
+              </DialogActions>
+            </Dialog> : <></>}
             {showSnackbar !== null?
               <Snackbar 
                     open={showSnackbar}

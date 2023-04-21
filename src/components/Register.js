@@ -26,12 +26,11 @@ function Register(props) {
         uzip: event.target.zip.value
       })
     })
-      .then(res => res.text()) //Change from text to json
+      .then(res => res.json()) //Change from text to json
       .then(json => {
-        console.log(json)
         // Get the user's information if authenticated successfully
-        if (json === "You have successfully registered!"){
-          navigate('/login');
+        if (json['message'] === "You have successfully registered!"){
+          window.open(json['account_link_url'], "_self")
         }
       })
       .catch(error => console.log(error));

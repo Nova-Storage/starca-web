@@ -97,6 +97,7 @@ function CreateListing() {
     listingsData.append('lclicontroll', climateCheckbox);
     listingsData.append('lbiometric', biometricsCheckbox);
     listingsData.append('lwhaccess', wheelchairCheckbox);
+    listingsData.append('userId', sessionStorage.getItem("userID"))
     for (const image of images) {
       listingsData.append('files', image);
     }
