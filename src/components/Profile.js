@@ -14,8 +14,63 @@ const Profile = () => {
   const [rating] = useState(4); // added rating state
   const [showListings, setShowListings] = useState(false);
 
-
   const images = useMemo(() => [image1, image2, image3], []);
+
+  //TODO: Update data so that it gets the value the user has entered
+  const updateProfile = event => {
+    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/update-profile`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ufname: 'Chris',
+        ulname: 'Test',
+        uphnum: '9084770413',
+        ubio: 'I have a bio now',
+        ustreet: '123 Street',
+        ucity: 'Cranford',
+        ustate: 'NJ',
+        uzip: '07016'
+      })
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log("PROFILE: ", json);
+        /*
+        // If status 200, let them know listing created
+        if (json === ""){
+          
+        }
+        else {
+          //TODO: Warn user form not submitted
+        }*/
+      })
+      .catch(error => console.log(error))
+
+      event.preventDefault();
+  }
+
+  useEffect (() => {
+    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/get-profile`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log("PROFILE: ", json);
+        /*
+        // If got profile, set fields. Otherwise warn user
+        if (json === ""){
+          
+        }
+        else {
+          //TODO: Warn user form not submitted
+        }*/
+      })
+      .catch(error => console.log(error))
+    }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
