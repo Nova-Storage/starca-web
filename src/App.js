@@ -16,7 +16,7 @@ import Footer from './components/Footer.js';
 import CreateListing from './components/CreateListing.js';
 import MyListings from './components/MyListings.js'
 import Message from './components/Message.js'
-import Payment from './components/Payment.js'
+import PaymentForm from './components/PaymentForm.js'
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword';
 
@@ -62,8 +62,8 @@ function App() {
               </Route>
               <Route exact path="/account" element={<CreateListing />}>
               </Route>
-              <Route exact path="/detail" element={<ListingDetail />}>
-              </Route>
+              {/* <Route exact path="/detail" element={<ListingDetail />}>
+              </Route> */}
               <Route exact path="/my-listings" element={<MyListings />}>
               </Route>
               <Route exact path="/messages" element={<Message />}>
@@ -102,9 +102,9 @@ function App() {
               </Route>
               <Route exact path="/register" element={<Register />}>
               </Route>
-              <Route exact path="/payment" element={<Payment />}>
-              </Route>
               <Route exact path="/forgotPassword" element={<ForgotPassword />}>
+              </Route>
+              <Route exact path="/detail" element={<ListingDetail />}>
               </Route>
               <Route exact path="/resetPassword" element={<ResetPassword />}>
               </Route>

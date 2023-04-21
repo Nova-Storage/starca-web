@@ -20,7 +20,7 @@ function Dashboard() {
   }
 
   useEffect(() => {
-      fetch('https://starcaserver.com/get-listings', {
+      fetch('http://localhost:3000/get-listings', {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',

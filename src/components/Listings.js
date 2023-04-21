@@ -15,10 +15,11 @@ function Listings(props) {
     return (
         <div className="listings">
             <Grid container rowSpacing={2} columnSpacing={1}>
-                {props.listings.slice(0,9).map(listing => {
+                {props.listings.map(listing => {
                 return(
                     <Grid xs={4} onClick={ () => { 
                         navigate('/detail', { state: {
+                            listingID: listing.lid,
                             listingTitle: listing.ltitle,
                             listingDescription: listing.ldescr,
                             listingPrice: listing.lprice,
@@ -26,7 +27,7 @@ function Listings(props) {
                             listingCity: listing.lcity,
                             listingState: listing.lstate,
                             listingZip: listing.lzip,
-                            listingAmenities: ['Security Cameras, ', 'Biometrics, ', 'Wheelchair Accessible']
+                            listingAmenities: ['Security Cameras, ', 'Biometrics, ', 'Wheelchair Accessible'],
                         } });
                         
                     }}>

@@ -92,7 +92,7 @@ function CreateListing() {
     */
 
     //TODO: Change the endpoint
-    fetch('https://starcaserver.com/listing', {
+    fetch('http://localhost:3000/listing', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -145,11 +145,11 @@ function CreateListing() {
             <StyledTextField id="street" label="Street Address" variant="outlined"/>
             <StyledTextField id="state" label="State" variant="outlined"/>
             <StyledTextField id="length" label="Length" variant="outlined" type="number" sx={{ width: '100%', maxWidth: '30%'}}/>
-            <StyledTextField id="width" label="Width" variant="outlined" sx={{ width: '100%', maxWidth: '30%'}}/>
-            <StyledTextField id="height" label="Height" variant="outlined" sx={{ width: '100%', maxWidth: '30%'}} />
+            <StyledTextField id="width" label="Width" variant="outlined"  type="number" sx={{ width: '100%', maxWidth: '30%'}}/>
+            <StyledTextField id="height" label="Height" variant="outlined"  type="number" sx={{ width: '100%', maxWidth: '30%'}} />
             <StyledTextField id="zipcode" label="Zip Code" variant="outlined"/>
             <StyledTextField id="country" label="Country" variant="outlined"/>
-            <StyledTextField id="price" label="Price" variant="outlined" className='price'/>
+            <StyledTextField id="price" label="Price"  type="number" variant="outlined" className='price'/>
             <FormControlLabel id="cameras" value="top" control={<Checkbox />} label="Security Cameras"  labelPlacement="top" onChange={handleCamerasCheckboxClick}/>
             <FormControlLabel id="climate" value="top" control={<Checkbox />} label="Climate Control"  labelPlacement="top" onChange={handleClimateCheckboxClick}/>
             <FormControlLabel id="biometrics" value="top" control={<Checkbox />} label="Biometrics"  labelPlacement="top" onChange={handleBiometricsCheckboxClick}/>
