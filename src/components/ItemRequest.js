@@ -17,10 +17,8 @@ function ItemRequest(props) {
                 <img id='request-image' src={logo} height='50px' width='50px'/>
                 <h4 id='request-message-title'>{props.requestTitle}</h4>
                 <p id='request-message' align="left">{messageContent}</p>
-                <div className='request-cancel'>
-                <StyledNegativeButton type="button" variant="contained" id="cancel" className='request-cancel'>Cancel</StyledNegativeButton>
-                </div>
-                <StyledButton type="submit" id="submit" variant="contained" className='request-submit'>Submit</StyledButton>
+                <StyledNegativeButton type="button" variant="contained" id="cancel" className='request-cancel'>Decline</StyledNegativeButton>
+                <StyledButton type="submit" id="submit" variant="contained" className='request-submit'>Accept</StyledButton>
             </div>
         </Paper>
     </div>

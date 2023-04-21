@@ -16,10 +16,11 @@ function Listings(props) {
     return (
         <div className="listings">
             <Grid container rowSpacing={2} columnSpacing={1}>
-                {props.listings.slice(0,9).map(listing => {
+                {props.listings.map(listing => {
                 return(
                     <Grid xs={props.listingColumnValue} onClick={ () => { 
                         navigate('/detail', { state: {
+                            listingImages:  listing.imageUrls,
                             listingTitle: listing.ltitle,
                             listingDescription: listing.ldescr,
                             listingPrice: listing.lprice,
@@ -32,6 +33,7 @@ function Listings(props) {
                         
                     }}>
                         <ItemListing 
+                            listingImages = { listing.imageUrls ? listing.imageUrls : false }
                             listingTitle={ listing.ltitle }
                             listingDescription={ listing.ldescr }
                             listingPrice={ listing.lprice }

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 function ListingRequests(props) {
     const requests = requestData.requests;
 
+    //TODO: Need to load the listings Image and listing title at the top so user know's which listing we're talkking about
     //TODO: need to pass request ID in order to make the API call and change the status for that one
 
   return (

@@ -30,7 +30,8 @@ export default function AccountMenu(props) {
     
     console.log("Logging out from server");
     fetch(`${process.env.REACT_APP_SERVER_URL}logout`, {
-      method: 'GET'
+      method: 'GET',
+      credentials: 'include'
     })
       .then(res => res.text())
       .catch(error => console.log(error));
@@ -40,7 +41,6 @@ export default function AccountMenu(props) {
     setAnchorEl(null);
     sessionStorage.clear();
     logOutServer();
-    localStorage.removeItem('ugid');
     localStorage.removeItem("isLoggedIn");
     props.authenticated();
     navigate('/');

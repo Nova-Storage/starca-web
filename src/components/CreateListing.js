@@ -8,6 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
 import { upload } from '@testing-library/user-event/dist/upload';
 import logo  from '../images/starca-logo-icon.png';
+import Cookies from 'js-cookie';
 
 function CreateListing() {
 
@@ -80,30 +81,30 @@ function CreateListing() {
     console.log(camerasCheckbox);
     console.log(images);
 
-    //TODO: Change the endpoint
-    fetch('https://starcaserver.com/listing', {
+    const listingsData = new FormData();
+    listingsData.append('ltitle', event.target.title.value);
+    listingsData.append('ldescr', event.target.description.value);
+    listingsData.append('llen', event.target.length.valueAsNumber);
+    listingsData.append('lwid', event.target.width.valueAsNumber);
+    listingsData.append('lheight', event.target.height.valueAsNumber);
+    listingsData.append('lprice', event.target.price.valueAsNumber);
+    listingsData.append('lstreet', event.target.street.value);
+    listingsData.append('lcity', event.target.city.value);
+    listingsData.append('lstate', event.target.state.value);
+    listingsData.append('lzip', event.target.zipcode.value);
+    listingsData.append('lcountry', event.target.country.value);
+    listingsData.append('lseccamara', camerasCheckbox);
+    listingsData.append('lclicontroll', climateCheckbox);
+    listingsData.append('lbiometric', biometricsCheckbox);
+    listingsData.append('lwhaccess', wheelchairCheckbox);
+    for (const image of images) {
+      listingsData.append('files', image);
+    }
+    
+    fetch(`${process.env.REACT_APP_SERVER_URL}listing`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ltitle: event.target.title.value,
-        ldescr: event.target.description.value,
-        llen: event.target.length.valueAsNumber,
-        lwid: event.target.width.valueAsNumber,
-        lheight: event.target.height.valueAsNumber,
-        lprice: event.target.price.valueAsNumber,
-        lstreet: event.target.street.value,
-        lcity: event.target.city.value,
-        lstate: event.target.state.value,
-        lzip: event.target.zipcode.value,
-        lcountry: event.target.country.value,
-        lseccamara: camerasCheckbox,
-        lclicontroll: climateCheckbox,
-        lbiometric: biometricsCheckbox,
-        lwhaccess: wheelchairCheckbox
-      }),
-      files: images
+      credentials: 'include',
+      body: listingsData
     })
       .then(res => res.json())
       .then(json => {
