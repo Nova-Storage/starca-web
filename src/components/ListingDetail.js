@@ -34,7 +34,7 @@ function ListingDetail(props) {
     const navigate = useNavigate()
 
     const handlePayment = () => {
-      fetch(`http://localhost:3000/create-checkout-session`, {
+      fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/create-checkout-session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,8 +49,7 @@ function ListingDetail(props) {
         .then(json => {
           console.log(json)
           if (json['message'] === 'Checkout Link Created') {
-            // window.open(json['checkout_link'], '_self')
-            console.log(json['checkout_link'])
+            window.open(json['checkout_link'], '_self')
 
           }
         })
