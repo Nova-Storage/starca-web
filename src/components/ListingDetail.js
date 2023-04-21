@@ -1,5 +1,5 @@
 import './ListingDetail.css';
-import {Navigate, useLocation, useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import CardMedia from '@mui/material/CardMedia';
 import StorageUnitOutline from '../images/StorageUnitOutline.jpg';
 import ImageList from '@mui/material/ImageList';
@@ -7,15 +7,13 @@ import ImageListItem from '@mui/material/ImageListItem';
 import { useState } from  'react';
 import { StyledButton } from './StyledMuiComponents.js';
 import ItemReview  from './ItemReview.js';
-import PaymentForm from './PaymentForm';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
 
 
 function ListingDetail(props) {
     
     const { state } = useLocation();
-    const {listingID, listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip, listingAmenities} = state;
+    const {ownerID, listingID, listingTitle, listingDescription, listingPrice, listingAddress, listingCity, listingState, listingZip, listingAmenities} = state;
 
     const [image, setImage] = useState("https://images.unsplash.com/photo-1551963831-b3b1ca40c98e");
 
@@ -36,8 +34,8 @@ function ListingDetail(props) {
         },
         body: JSON.stringify({
           lid: listingID,
-          ownerEmail: 'mrachid0531@gmail.com',
-          renterEmail: 'taway4911@gmail.com'
+          ownerID: ownerID,
+          renterID: sessionStorage.getItem('userID')
         })
       })
         .then(res => res.json())

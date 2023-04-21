@@ -113,7 +113,8 @@ function CreateListing() {
         lseccamara: camerasCheckbox,
         lclicontroll: climateCheckbox,
         lbiometric: biometricsCheckbox,
-        lwhaccess: wheelchairCheckbox
+        lwhaccess: wheelchairCheckbox,
+        userId: sessionStorage.getItem("userID")
       }),
       files: images
     })

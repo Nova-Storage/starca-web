@@ -89,6 +89,8 @@ function Login(props) {
         if (json['message'] === "You Logged In!"){
           props.authenticated();
           sessionStorage.setItem("email", event.target.email.value);
+          sessionStorage.setItem("userID", json['userID']);
+
 
           // User did not complete their Stripe linking,
           if (json['stripe_connected'] === false) {

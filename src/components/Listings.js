@@ -19,6 +19,7 @@ function Listings(props) {
                 return(
                     <Grid xs={4} onClick={ () => { 
                         navigate('/detail', { state: {
+                            ownerID: listing.luserid,
                             listingID: listing.lid,
                             listingTitle: listing.ltitle,
                             listingDescription: listing.ldescr,
