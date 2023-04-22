@@ -1,3 +1,10 @@
 .listings {
     padding: 2rem 2vmin;
+    -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none;  /* Hide scrollbar for Firefox */
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.listings::-webkit-scrollbar {
+    display: none;
+  }
