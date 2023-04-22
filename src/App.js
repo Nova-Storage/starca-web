@@ -29,11 +29,7 @@ function App() {
   function authenticated(){
     setIsLoggedIn(!isLoggedIn);
   }
-
-  const pathname = window.location.pathname
-  console.log(pathname)
-
-  
+    
   const firstName = "John"
   const lastName = "Doe"
   const email = "johndoe@email.com"
