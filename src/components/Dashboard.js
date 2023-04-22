@@ -40,7 +40,7 @@ function Dashboard() {
     return (
     <div className='dashboard-container'>
       <div className='options'>
-        <FormControlLabel control={<Switch id='toggle' checked={showMap} onChange={toggleMap} />} label="Map" />
+        {/* <FormControlLabel control={<Switch id='toggle' checked={showMap} onChange={toggleMap} />} label="Map" /> */}
       </div>
       <div className='grid-listings listings'>
         <Listings listings={ listings } listingColumnValue={2}/>
@@ -52,7 +52,7 @@ function Dashboard() {
     return (
       <div className='dashboard-container'>
         <div className='options'>
-          <FormControlLabel control={<Switch id='toggle' checked={showMap} onChange={toggleMap} />} label="Map" />
+          {/* <FormControlLabel control={<Switch id='toggle' checked={showMap} onChange={toggleMap} />} label="Map" /> */}
         </div>
         <div className="grid-map-listings-columns">
         {/* <Autocomplete   

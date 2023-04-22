@@ -41,6 +41,25 @@ export const LoginTextField = styled(TextField)(({ theme }) => ({
   margin: 10,
 }));
 
+export const RegisterTextField = styled(TextField)(({ theme }) => ({
+  width: 1000,
+  "& label.Mui-focused": {
+    color: "#0C825F"
+  },
+  "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "gray"
+      },
+      "&:hover fieldset": {
+        borderColor: "gray"
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#0C825F"
+      }
+    },
+  margin: 10,
+}));
+
 export const StyledPasswordFormControl = styled(FormControl)(({ theme }) => ({
   width: 300,
   "& label.Mui-focused": {
