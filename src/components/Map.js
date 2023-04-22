@@ -3,7 +3,7 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import { GoogleMap, useJsApiLoader, Marker, Circle } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { CircularProgress } from '@mui/material';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode'
@@ -19,10 +19,13 @@ const lib = ['places']
 // Styling for the map
 const containerStyle = {
   width: '100%',
-  height: '99%',
+  height: '92vh',
   position: 'fixed',
   overflow: 'hidden',
-  marginTop: '1%'
+  marginTop: '-3%',
+  marginLeft: '1%',
+  borderRadius: "10px",
+  border: "1px solid black",
 };
 
 // Search Box Autocomplete options
@@ -188,17 +191,6 @@ function Map({listings}) {
   // Map done loading, display page contents
   return (
     <div className='maps-container'>
-        <Autocomplete
-          id='zipinput'   
-          apiKey={`${process.env.REACT_APP_MAP_ID}`}
-          options={searchOptions}
-          placeholder={zipCode}
-          onPlaceSelected={(place) => {
-            setCenter(() => getCoords(place))
-            setStateFromSearch(place)
-          }}
-        > 
-        </Autocomplete>
       <GoogleMap
         id='map'
         center={mapCenter}
@@ -213,8 +205,6 @@ function Map({listings}) {
             >
             </Border>
           }
-
-
           {
           /* Insert listings from dashboard as markers onto the map: */
             listingCoords.map( marker => {
@@ -230,9 +220,21 @@ function Map({listings}) {
               )
             })
           }
-
         </div>
       </GoogleMap>
+      <div className='searchBar'>
+        <Autocomplete
+            id='searchBar'   
+            apiKey={`${process.env.REACT_APP_MAP_ID}`}
+            options={searchOptions}
+            placeholder={zipCode}
+            onPlaceSelected={(place) => {
+              setCenter(() => getCoords(place))
+              setStateFromSearch(place)
+            }}
+            > 
+          </Autocomplete>
+        </div>
     </div>
   )
 }
