@@ -29,7 +29,7 @@ function App() {
   function authenticated(){
     setIsLoggedIn(!isLoggedIn);
   }
-  
+    
   const firstName = "John"
   const lastName = "Doe"
   const email = "johndoe@email.com"
@@ -44,10 +44,10 @@ function App() {
                 <li className="navbar-header">
                   <Link to="/"><img src={ logo } width="160px" max_height="auto"/></Link>
                 </li>
-                <li className="navbar-right">
+                {/* <li className="navbar-right">
                   <MdMenu size={26}/>
-                </li>
-                <li className="navbar">
+                </li> */}
+                <li className="navbar" style={{marginRight: '1%'}}>
                   <AccountMenu authenticated={authenticated}/>
                 </li>
               </ul>

@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { StyledButton, LoginTextField, StyledPasswordFormControl} from './StyledMuiComponents.js';
+import { FormHelperText } from '@mui/material'
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -45,6 +46,8 @@ function Login(props) {
 
   const [showStripeAlert, setShowStripeAlert] = useState(false)
   const [stripeLink, setStripeLink] = useState('')
+  const [emailError, setEmailError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
 
   useEffect(() => {
     if (location.state) {
@@ -68,8 +71,31 @@ function Login(props) {
     event.preventDefault()
   }
   
+  // Check if the passwords match.
+  function handleInputChanged(field) {
+    switch (field) {
+      case "email":
+        setEmailError(false)
+        break;
+      case "password":
+        setPasswordError(false)
+        break
+      default:
+        break;
+    }
+  }
+  
   const authenticateUser = event => {
-    
+
+    if (event.target.email.value === "") {
+      setEmailError(true)
+    }
+
+    if (event.target.password.value === "") {
+      setPasswordError(true)
+    }
+
+    else {
     console.log(event.target.email.value);
     console.log(event.target.password.value);
     fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/login`, {
@@ -110,6 +136,7 @@ function Login(props) {
       .catch(error => console.log(error));
       //TODO: Get user's info in a state varibale
       //.then((result) => setData(result.rows))
+    }
       
       // Stop the form from refreshing the page which would create infinite refreshing
       event.preventDefault();
@@ -160,31 +187,32 @@ function Login(props) {
             <table>
               <tr>
                 <td>
-                <LoginTextField id="email" label="Email" variant="outlined" />
+                  <LoginTextField id="email" label="Email" variant="outlined" error={emailError ? true : false} helperText={emailError ? "Required" : ""} onChange={(e) => handleInputChanged("email", e)}/> 
                 </td>
               </tr>
               <tr>
                 <td>
-                <StyledPasswordFormControl variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                  <OutlinedInput
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                  />
-                </StyledPasswordFormControl>
+                    <StyledPasswordFormControl variant="outlined" error={passwordError ? true : false} onChange={(e) => handleInputChanged("password", e)}>
+                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <OutlinedInput
+                      id="password"
+                      type={showPassword ? 'text' : 'password'}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Password"
+                    />
+                    {passwordError ? <FormHelperText>Required</FormHelperText>: <></>}
+                  </StyledPasswordFormControl>
                 </td>
               </tr>
             </table>

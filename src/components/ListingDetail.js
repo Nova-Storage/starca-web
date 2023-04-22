@@ -67,7 +67,7 @@ function ListingDetail(props) {
         'Api-Token': `${process.env.REACT_APP_SENDBIRD_API_TOKEN}`
       },
       body: JSON.stringify({
-        "user_ids": ["mr754@njit.edu", "testuser@gmail.com"], // HAVE TO CHANGE, HARDCODED FOR NOW
+        "user_ids": [`${sessionStorage.getItem("email")}`, `${ownerID}`], // HAVE TO CHANGE, HARDCODED FOR NOW
         "is_distinct": true,
       })
     })
@@ -84,7 +84,7 @@ function ListingDetail(props) {
             "user_id": sessionStorage.getItem("email"),
             "message": `Hello, I am interested in your storage listing at ${listingAddress}, ${listingCity}, ${listingState} ${listingZip}`,
             "mention_type": "users",
-            "mentioned_user_ids": ["testuser@gmail.com"] // HAVE TO CHANGE, HARDCODED FOR NOW
+            "mentioned_user_ids": [`${ownerID}`] // HAVE TO CHANGE, HARDCODED FOR NOW
           })
         })
           .then(res => res.json())
@@ -97,8 +97,6 @@ function ListingDetail(props) {
       .catch(error => {
         console.log("Error Creating Channel")
       })
-
-      navigate('/payment')
     }
     
     return (
