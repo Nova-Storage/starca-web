@@ -16,7 +16,7 @@ function Listings(props) {
     return (
         <div className="listings">
             <Grid container rowSpacing={2} columnSpacing={1}>
-                {props.listings.map(listing => {
+                {props.listings.message == undefined ? props.listings.map(listing => {
                 return(
                     <Grid xs={props.listingColumnValue} onClick={ () => { 
                         navigate('/detail', { state: {
@@ -46,7 +46,7 @@ function Listings(props) {
                             listingAmenities= { ['Security Cameras, ', 'Biometrics, ', 'Wheelchair Accessible'] }/>
                     </Grid>
                     );
-                })}
+                }) : <p>No Listings Available</p>}
             </Grid>
         </div>
         );

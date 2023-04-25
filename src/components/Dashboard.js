@@ -23,6 +23,7 @@ function Dashboard() {
   useEffect(() => {
       fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/get-listings`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
