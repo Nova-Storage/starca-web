@@ -16,13 +16,15 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import CircleIcon from '@mui/icons-material/Circle';
 import { useLocation } from 'react-router-dom'
-import { Snackbar, Alert, Dialog, DialogActions, DialogTitle, Button, Typography, DialogContent } from '@mui/material'
+import { Snackbar, Alert, Dialog, DialogActions, DialogTitle, Button, Typography, DialogContent, CircularProgress } from '@mui/material'
 
 function Login(props) {
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarMessage, setSnackbarMessage] = React.useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -98,6 +100,7 @@ function Login(props) {
     else {
     console.log(event.target.email.value);
     console.log(event.target.password.value);
+    setIsLoading(true)
     fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/login`, {
       method: 'POST',
       credentials: 'include',
@@ -146,6 +149,11 @@ function Login(props) {
   return (
       <div className='login-grid-container'>
           <div>
+          {isLoading ? 
+          <CircularProgress className='circular-progress'/>
+          :
+          <></>
+        }
           {showStripeAlert?
               <Dialog
                 // onClose={handleClose}

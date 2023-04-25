@@ -3,10 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { StyledButton, RegisterTextField } from './StyledMuiComponents.js'
 import {Paper } from '@mui/material'
 import { useState } from 'react'
+import { CircularProgress } from '@mui/material'
 
 function Register(props) {
   
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false)
+
 
   const [firstNameError, setFirstNameError] = useState(false)
   const [lastNameError, setLastNameError] = useState(false)
@@ -62,9 +66,11 @@ function Register(props) {
   }
 
   const handleRegisterSubmit = event => {
+    let canSubmit = true
     // Check for empty fields
     if (event.target.email.value === "") {
       setEmailError(true)
+      canSubmit = false
     }
     if (event.target.password.value === "") {
       setPasswordError(true)
@@ -96,7 +102,6 @@ function Register(props) {
       setZipError(true)
     }
 
-    
     // Check passwords match
     if (event.target.password.value !== event.target.confirm_password.value) {
       setPasswordError(true)
@@ -105,6 +110,7 @@ function Register(props) {
       setConfPasswordHelper("Passwords must match")
     }
     
+    // If any errors, do not submit
     else {
       fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/register`, {
         method: 'POST',
@@ -127,7 +133,8 @@ function Register(props) {
         .then(res => res.json()) //Change from text to json
         .then(json => {
           // Get the user's information if authenticated successfully
-
+          setIsLoading(true)
+          
           if (json['message'] === 'User already exists') {
             // Alert that user already exists using snackbar
             console.log("User Exists")
@@ -164,6 +171,11 @@ function Register(props) {
   
   return (
       <div className='register-container'>
+            {isLoading ? 
+            <CircularProgress className='circular-progress'/>
+            :
+            <></>
+          }
           <Paper elevation={5} className='registration_paper'>
             <h1>Register</h1>
             <form onSubmit={handleRegisterSubmit}>

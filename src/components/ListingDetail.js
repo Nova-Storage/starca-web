@@ -7,8 +7,11 @@ import ImageListItem from '@mui/material/ImageListItem';
 import { useState } from  'react';
 import { StyledButton } from './StyledMuiComponents.js';
 import ItemReview  from './ItemReview.js';
-import { Storage } from '@mui/icons-material';
+import { Circle, Storage } from '@mui/icons-material';
 import { loadStripe } from '@stripe/stripe-js';
+import { CircularProgress } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
 
 
 function ListingDetail(props) {
@@ -33,7 +36,10 @@ function ListingDetail(props) {
 
     const navigate = useNavigate()
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const handlePayment = () => {
+      setIsLoading(true)
       fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/create-checkout-session`, {
         method: 'POST',
         headers: {
@@ -101,6 +107,11 @@ function ListingDetail(props) {
     
     return (
       <div>
+        {isLoading ? 
+          <CircularProgress className='circular-progress' />
+          :
+          <></>
+        }
         <div className="grid-even-columns">
             <ImageList sx={{ width: 150, height: 300, margin: 0}} cols={1} rowHeight={105}>
               {listingImages.map((item) => (
