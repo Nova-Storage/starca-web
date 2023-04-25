@@ -19,6 +19,7 @@ import Message from './components/Message.js';
 import ListingRequests from './components/ListingRequests.js';
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword';
+import Account from './components/Account';
 
 function App() {
   
@@ -62,7 +63,7 @@ function App() {
               </Route>
               <Route exact path="/login" element={<Login authenticated={authenticated}/>}>
               </Route>
-              <Route exact path="/account" element={<CreateListing />}>
+              <Route exact path="/account" element={<Account />}>
               </Route>
               <Route exact path="/create-listing" element={<CreateListing />}>
               </Route>
