@@ -1,9 +1,8 @@
-import React from "react";
-//import "./MyListings.css";
-import image1 from './image1.jpeg';
-import image2 from './image2.jpeg';
-import image3 from './image3.jpeg';
-import image4 from './image4.jpeg'
+import React, { useEffect } from "react";
+import "./MyListings.css";
+import ItemListing from './ItemListing.js';
+import { StyledButton } from './StyledMuiComponents';
+import {useNavigate} from 'react-router-dom';
 import { useEffect } from "react";
 import { useLocation } from 'react-router-dom'
 import { Snackbar, Alert  } from '@mui/material'
@@ -27,27 +26,56 @@ const MyListings = (props) => {
       }, 3000)
     }, [])
 
-  const listings = [
-    {
-      image: image1,
-      address: 'Newark ,NJ',
-      price: '$200',
-    },
-    {
-      image: image2,
-      address: 'Linden, NJ',
-      price: '$300',
-    },
-    {
-      image: image3,
-      address: 'Elizabeth ,NJ',
-      price: '$100',
-    },
-  ];
+  
+  const [myListings, setMyListings] = React.useState([]);
 
-  return (
-    <div>
-    <div className="listings-tab">
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/get-my-listings`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      }
+      })
+      .then(res => res.json())
+      .then(json => {
+          console.log("MY LISTINGS: " + json[0].ltitle);
+          setMyListings(json);
+      })
+      .catch(error => console.log(error));
+    }, [])
+
+    const navigate = useNavigate();
+    const handleNewListingClick = () => {
+        navigate('/create-listing');
+    }
+
+    /*
+    onClick={ () => { 
+                      navigate('/detail', { state: {
+                          ownerID: listing.luserid,
+                          listingID: listing.lid,
+                          listingImages:  listing.imageUrls,
+                          listingTitle: listing.ltitle,
+                          listingDescription: listing.ldescr,
+                          listingPrice: listing.lprice,
+                          listingAddress: listing.lstreet,
+                          listingCity: listing.lcity,
+                          listingState: listing.lstate,
+                          listingZip: listing.lzip,
+                          listingAmenities: ['Security Cameras, ', 'Biometrics, ', 'Wheelchair Accessible'],
+                      } }
+    */
+
+
+    //TODO: Create "MyListing item"
+
+    return (
+      <div className="my-listings-container">
+        <StyledButton type="submit" 
+                      variant="contained" 
+                      className="create-listing-button" 
       <Snackbar 
             open={showSnackbar}
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
@@ -55,31 +83,31 @@ const MyListings = (props) => {
         >
             <Alert severity='success'>{snackbarMessage}</Alert>
         </Snackbar>
-      {listings.map((listing, index) => (
-        <div key={index} className="listing">
-          <img src={listing.image} alt={listing.address} />
-          <div className="listing-info">
-            <p className="price">{listing.price}</p>
-            <p className="address">{listing.address}</p>
-            <button className="request-button">Request</button>
-          </div>
+                      style={{width: '10rem'}}
+                      onClick={handleNewListingClick}>New Listing</StyledButton>
+        <h1 className="my-listings-title" id="title">My Listings</h1>
+        <div className="my-listings-grid-container">
+            {myListings.map(listing => {
+            return(
+                
+                    <ItemListing 
+                        listingImages = { listing.imageUrls ? listing.imageUrls : false }
+                        listingTitle={ listing.ltitle }
+                        listingDescription={ listing.ldescr }
+                        listingPrice={ listing.lprice }
+                        listingAddress={ listing.lstreet }
+                        listingCity={ listing.lcity }
+                        listingState={ listing.lstate } 
+                        listingZip={ listing.lzip }
+                        listingAmenities= { ['Security Cameras, ', 'Biometrics, ', 'Wheelchair Accessible'] }/>
+                
+                );
+            
+            })}
         </div>
-        
-      ))}
-    </div>
-    <div>
-            <h2>Current Rentals</h2>
-            <div >
-          <img src={image4} alt={''} />
-          <div className="listing-info">
-            <p className="price">{"$100"}</p>
-            <p className="address">{"Newark ,NJ"}</p>
-            <button className="end-rental-button">End rental</button>
-          </div>
-        </div>
-          </div>
-    </div>
-  );
+        <h1 className="my-listings-title" id="rentals-title">My Rentals</h1>
+      </div>
+      );
 };
 
 export default MyListings;
