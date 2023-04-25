@@ -5,70 +5,129 @@ import image2 from './image2.jpeg';
 import image3 from './image3.jpeg';
 import profilepic from './profile.jpeg'
 import image4 from './image4.jpeg'
+import Rating from '@mui/material/Rating';
+import { StyledButton, RegisterTextField } from './StyledMuiComponents.js'
+
 
 const Profile = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
-  const [name, setName] = useState("Christian");
-  const [bio, setBio] = useState("my bio here.");
-  const [rating] = useState(4); // added rating state
+  const [rating, setRating] = useState(4); // added rating state
   const [showListings, setShowListings] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [bio, setBio] = useState("No bio.");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [profilePicture, setProfilePicture] = useState();
+  const [formValues, setFormValues] = useState({
+    first_name: '',
+    last_name: '',
+    phone_number: '',
+    bio: '',
+    city: '',
+    street: '',
+    state: '',
+    zip: '',
+  })
+
 
   const images = useMemo(() => [image1, image2, image3], []);
 
-  //TODO: Update data so that it gets the value the user has entered
-  const updateProfile = event => {
-    fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/update-profile`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ufname: 'Chris',
-        ulname: 'Test',
-        uphnum: '9084770413',
-        ubio: 'I have a bio now',
-        ustreet: '123 Street',
-        ucity: 'Cranford',
-        ustate: 'NJ',
-        uzip: '07016'
-      })
-    })
-      .then(res => res.json())
-      .then(json => {
-        console.log("PROFILE: ", json);
-        /*
-        // If status 200, let them know listing created
-        if (json === ""){
-          
-        }
-        else {
-          //TODO: Warn user form not submitted
-        }*/
-      })
-      .catch(error => console.log(error))
-
-      event.preventDefault();
+  const handleInputChange = (event) => {
+    const {name, value} = event.target
+    if (name === 'first_name' && value !== firstName) {
+      setFirstName(value);
+    } else if (name === 'last_name' && value !== lastName) {
+      setLastName(value);
+    } else if (name === 'phone_number' && value !== phoneNumber) {
+      setPhoneNumber(value);
+    } else if (name === 'bio' && value !== bio) {
+      setBio(value);
+    } else if (name === 'street' && value !== street) {
+      setStreet(value);
+    } else if (name === 'city' && value !== city) {
+      setCity(value);
+    } else if (name === 'state' && value !== state) {
+      setState(value);
+    } else if (name === 'zip' && value !== zip) {
+      setZip(value);
+    }
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }))
   }
 
+  //TODO: Update data so that it gets the value the user has entered
+  const updateProfile = (event) => {
+      // console.log(formValues)
+      fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/update-profile`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ufname: `${firstName}`,
+          ulname:  `${lastName}`,
+          uphnum: `${phoneNumber}`,
+          ubio: `${bio}`,
+          ustreet: `${street}`,
+          ucity: `${city}`,
+          ustate: `${state}`,
+          uzip: `${zip}`
+        })
+      })
+        .then(res => {
+          if (res.status !== 200) {
+            console.error("Error fetching profile details")
+          }
+          else {
+            return res.json()
+          }
+        })
+        .then(json => {
+          console.log("PROFILE: ", json);
+          setShowPopup(false)
+        })
+        .catch(error => console.log(error))
+
+      event.preventDefault(); 
+    }
+
+  // Grab User's Info from Database
   useEffect (() => {
     fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/get-profile`, {
       method: 'GET',
       credentials: 'include',
     })
-      .then(res => res.json())
-      .then(json => {
-        console.log("PROFILE: ", json);
-        /*
-        // If got profile, set fields. Otherwise warn user
-        if (json === ""){
-          
-        }
-        else {
-          //TODO: Warn user form not submitted
-        }*/
-      })
+    .then(res => {
+      if (res.status !== 200) {
+        console.error("Error fetching profile details")
+      }
+      else {
+        return res.json()
+      }
+    })
+    .then(json => {
+      setFirstName(`${json.ufname}`)
+      setLastName(`${json.ulname}`)
+      setPhoneNumber(`${json.uphnum}`)
+      if (json.ubio !== null && json.ubio !== "") {
+        setBio(json.ubio)
+      }
+      setStreet(`${json.ustreet}`)
+      setCity(`${json.ucity}`)
+      setState(`${json.ustate}`)
+      setZip(`${json.uzip}`)
+
+      // Insert Profile Photo Here. State Variable Already defined above
+
+    })
       .catch(error => console.log(error))
     }, []);
 
@@ -79,19 +138,9 @@ const Profile = () => {
     return () => clearInterval(interval);
   }, [images]);
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  }
-
-  const handleBioChange = (event) => {
-    setBio(event.target.value);
-  }
-
-  const handleSaveChanges = () => {
-    setShowPopup(false);
-  }
-  const handleBackHome = () => {
+  const handleBackHome = (event) => {
     setShowListings(false)
+    event.preventDefault()
   }
   const dotIndicators = images.map((image, index) => (
     <span
@@ -101,19 +150,10 @@ const Profile = () => {
     />
   ));
 
-  // Added function to render star ratings
-  const renderStarRatings = () => {
-    const fullStars = Array.from(Array(rating), (_, i) => (
-      <span key={i} className="star full">&#9733;</span>
-    ));
-    const emptyStars = Array.from(Array(5 - rating), (_, i) => (
-      <span key={i} className="star empty">&#9734;</span>
-    ));
-    return [...fullStars, ...emptyStars];
-  }
   const toggleListings = () => {
     setShowListings(!showListings);
   }
+
   const listings = [
     {
       image: image1,
@@ -182,9 +222,15 @@ const Profile = () => {
             <div className="profile-picture">
               <img src={profilepic} alt="Profile" />
             </div>
-            <div className="star-ratings">{renderStarRatings()}</div> {/* render star ratings */}
+            <div className="star-ratings">
+              <Rating
+                name="read-only"
+                value={ rating }
+                readOnly
+              />
+            </div> 
             <div className="profile-info">
-              <h2>{name}</h2>
+              <h2>{firstName} {lastName}</h2>
               <p>{bio}</p>
               <button className="edit-profile-button" onClick={() => setShowPopup(true)}>Edit Profile</button>
             </div>
@@ -192,14 +238,53 @@ const Profile = () => {
 
           {showPopup ? (
 
-            <div className="slideshow">
-              <h2>Edit Profile</h2>
-              <label htmlFor="name">Name:</label>
-              <input type="text" id="name" value={name} onChange={handleNameChange} />
-              <label htmlFor="bio">Bio:</label>
-              <textarea id="bio" value={bio} onChange={handleBioChange}></textarea>
-              <button onClick={handleSaveChanges}>Save Changes</button>
-            </div>
+            <form onSubmit={updateProfile}>
+              <table>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <RegisterTextField name="first_name" value={formValues.first_name} onChange={handleInputChange} id="first_name" label="First Name" variant="outlined"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <RegisterTextField name="last_name" value={formValues.last_name} onChange={handleInputChange} id="last_name" label="Last Name" variant="outlined" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <RegisterTextField name="phone_number" value={formValues.phone_number} onChange={handleInputChange} id="phone_number" label="Phone Number" type='tel' variant="outlined" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <RegisterTextField name="bio" value={formValues.bio} onChange={handleInputChange} multiline={true} type="text" id="bio" label="Bio" variant="outlined" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                      <RegisterTextField name="street" value={formValues.street} onChange={handleInputChange} id="street" label="Street Address" variant="outlined"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                      <RegisterTextField name="city" value={formValues.city} onChange={handleInputChange} id="city" label="City" variant="outlined" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                      <RegisterTextField name="state" value={formValues.state} onChange={handleInputChange} id="state" label="State" variant="outlined" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                      <RegisterTextField name="zip" value={formValues.zip} onChange={handleInputChange} id="zip" label="Zip Code" variant="outlined"  />
+                      </td>
+                    </tr>
+                  </tbody>
+              </table>
+              <StyledButton type="submit" variant="contained">Save Changes</StyledButton>
+            </form>
 
           ) : (
             <>
