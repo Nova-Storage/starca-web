@@ -8,7 +8,7 @@ justify-self, justify-items, etc is for horizontal placement */
         'title create-listing'
         'my-listings my-listings'
         'rentals .';
-    align-items: center;
+    height: 100vh;
 }
 
 #title {
@@ -20,7 +20,7 @@ justify-self, justify-items, etc is for horizontal placement */
 }
 
 .create-listing-button {
-    padding: 0 4vmin;
+    margin-top: 4rem;
     grid-area: create-listing;
     height: 2rem;
     justify-self: right;

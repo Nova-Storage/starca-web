@@ -28,7 +28,7 @@
     grid-area: zipinput;
     position: absolute;
     top: -2vh;
-    left: 25px;
+    left: 4vmin;
     right: 80vh;
     padding: 15px;
     border-radius: 10px;
@@ -37,7 +37,7 @@
 }
 
 #searchBar:focus {
-    right: -5px
+    right: 2vmin
 }
 
 /* #map {

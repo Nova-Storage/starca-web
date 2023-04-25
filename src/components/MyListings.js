@@ -79,7 +79,7 @@ const MyListings = (props) => {
         <StyledButton type="submit" 
                       variant="contained" 
                       className="create-listing-button" 
-                      style={{width: '10rem'}}
+                      style={{width: '10rem', 'margin-top': '2rem'}}
                       onClick={handleNewListingClick}>New Listing</StyledButton>
         <h1 className="my-listings-title" id="title">My Listings</h1>
         <div className="my-listings-grid-container">
