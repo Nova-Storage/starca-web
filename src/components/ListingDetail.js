@@ -62,7 +62,7 @@ function ListingDetail(props) {
           }
         })
         .catch(error => {
-          console.log("Error Creating Checkout Link")
+          console.log(`Error Creating Checkout Link ${error}`)
           setIsLoading(false)
         })
     } 

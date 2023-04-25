@@ -136,7 +136,10 @@ function Login(props) {
           //TODO: Make input fields red
         }
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error)
+        setIsLoading(false)
+      });
       //TODO: Get user's info in a state varibale
       //.then((result) => setData(result.rows))
     }
