@@ -11,7 +11,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Rating from '@mui/material/Rating';
 import { StyledButton, RegisterTextField } from './StyledMuiComponents.js'
-import { Snackbar, Alert, Dialog, DialogActions, DialogTitle, Button, Typography, DialogContent } from '@mui/material'
+import { Snackbar, Alert } from '@mui/material'
 
 
 

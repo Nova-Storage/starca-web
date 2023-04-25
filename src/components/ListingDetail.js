@@ -8,6 +8,7 @@ import { useState } from  'react';
 import { StyledButton } from './StyledMuiComponents.js';
 import ItemReview  from './ItemReview.js';
 import { Storage } from '@mui/icons-material';
+import { Snackbar, Alert } from '@mui/material'
 import { loadStripe } from '@stripe/stripe-js';
 
 
@@ -23,6 +24,8 @@ function ListingDetail(props) {
     }
 
     const [image, setImage] = useState(listingImages[0]);
+    
+    const [showSnackbar, setShowSnackbar] = useState(false)
 
     const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
@@ -50,7 +53,6 @@ function ListingDetail(props) {
           console.log(json)
           if (json['message'] === 'Checkout Link Created') {
             window.open(json['checkout_link'], '_self')
-
           }
         })
         .catch(error => {
@@ -67,7 +69,7 @@ function ListingDetail(props) {
         'Api-Token': `${process.env.REACT_APP_SENDBIRD_API_TOKEN}`
       },
       body: JSON.stringify({
-        "user_ids": [`${sessionStorage.getItem("email")}`, `${ownerID}`], // HAVE TO CHANGE, HARDCODED FOR NOW
+        "user_ids": [`${sessionStorage.getItem("email")}`, `${ownerID}`],
         "is_distinct": true,
       })
     })
@@ -84,11 +86,17 @@ function ListingDetail(props) {
             "user_id": sessionStorage.getItem("email"),
             "message": `Hello, I am interested in your storage listing at ${listingAddress}, ${listingCity}, ${listingState} ${listingZip}`,
             "mention_type": "users",
-            "mentioned_user_ids": [`${ownerID}`] // HAVE TO CHANGE, HARDCODED FOR NOW
+            "mentioned_user_ids": [`${ownerID}`] 
           })
         })
           .then(res => res.json())
           .then(data => {
+            setShowSnackbar(true)
+  
+            setTimeout(() => {
+              setShowSnackbar(false)
+              navigate('/messages')
+            }, 2000)
           })
           .catch(error => {
             console.log("Error Sending Message")
@@ -102,6 +110,13 @@ function ListingDetail(props) {
     return (
       <div>
         <div className="grid-even-columns">
+          <Snackbar 
+              open={showSnackbar}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              autoHideDuration={3000}
+          >
+              <Alert severity='success'>Request Message Sent!</Alert>
+          </Snackbar>
             <ImageList sx={{ width: 150, height: 300, margin: 0}} cols={1} rowHeight={105}>
               {listingImages.map((item) => (
                 <ImageListItem key={item} onClick={() => handleImageClick(item)} className='image-list-item'>
