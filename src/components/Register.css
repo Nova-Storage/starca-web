@@ -13,3 +13,12 @@
 .registration_paper {
     padding: 3vh;
 }
+
+
+.circular-progress {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* make sure it's above other elements */
+  }

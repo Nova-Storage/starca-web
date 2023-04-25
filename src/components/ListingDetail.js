@@ -10,6 +10,9 @@ import ItemReview  from './ItemReview.js';
 import { Storage } from '@mui/icons-material';
 import { Snackbar, Alert } from '@mui/material'
 import { loadStripe } from '@stripe/stripe-js';
+import { CircularProgress } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
 
 
 function ListingDetail(props) {
@@ -36,7 +39,10 @@ function ListingDetail(props) {
 
     const navigate = useNavigate()
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const handlePayment = () => {
+      setIsLoading(true)
       fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/create-checkout-session`, {
         method: 'POST',
         headers: {
@@ -56,7 +62,8 @@ function ListingDetail(props) {
           }
         })
         .catch(error => {
-          console.log("Error Creating Checkout Link")
+          console.log(`Error Creating Checkout Link ${error}`)
+          setIsLoading(false)
         })
     } 
 
@@ -109,6 +116,11 @@ function ListingDetail(props) {
     
     return (
       <div>
+        {isLoading ? 
+          <CircularProgress className='circular-progress' />
+          :
+          <></>
+        }
         <div className="grid-even-columns">
           <Snackbar 
               open={showSnackbar}
