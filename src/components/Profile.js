@@ -5,17 +5,31 @@ import image2 from './image2.jpeg';
 import image3 from './image3.jpeg';
 import profilepic from './profile.jpeg'
 import image4 from './image4.jpeg'
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Rating from '@mui/material/Rating';
 import { StyledButton, RegisterTextField } from './StyledMuiComponents.js'
+import { Snackbar, Alert, Dialog, DialogActions, DialogTitle, Button, Typography, DialogContent } from '@mui/material'
+
+
+
 
 
 const Profile = () => {
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [showSnackbar, setShowSnackbar] = useState(false)
+
   const [currentImage, setCurrentImage] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
   const [rating, setRating] = useState(4); // added rating state
   const [showListings, setShowListings] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("");
   const [bio, setBio] = useState("No bio.");
   const [street, setStreet] = useState("");
@@ -23,9 +37,17 @@ const Profile = () => {
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
   const [profilePicture, setProfilePicture] = useState();
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const [formValues, setFormValues] = useState({
     first_name: '',
     last_name: '',
+    password: '',
+    confirm_password: '',
     phone_number: '',
     bio: '',
     city: '',
@@ -43,6 +65,10 @@ const Profile = () => {
       setFirstName(value);
     } else if (name === 'last_name' && value !== lastName) {
       setLastName(value);
+    } else if (name === 'password' && value !== lastName) {
+      setPassword(value);
+    } else if (name === 'confirm_password' && value !== lastName) {
+      setConfirmPassword(value);
     } else if (name === 'phone_number' && value !== phoneNumber) {
       setPhoneNumber(value);
     } else if (name === 'bio' && value !== bio) {
@@ -64,40 +90,49 @@ const Profile = () => {
 
   //TODO: Update data so that it gets the value the user has entered
   const updateProfile = (event) => {
-      // console.log(formValues)
-      fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/update-profile`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          ufname: `${firstName}`,
-          ulname:  `${lastName}`,
-          uphnum: `${phoneNumber}`,
-          ubio: `${bio}`,
-          ustreet: `${street}`,
-          ucity: `${city}`,
-          ustate: `${state}`,
-          uzip: `${zip}`
-        })
-      })
-        .then(res => {
-          if (res.status !== 200) {
-            console.error("Error fetching profile details")
-          }
-          else {
-            return res.json()
-          }
-        })
-        .then(json => {
-          console.log("PROFILE: ", json);
-          setShowPopup(false)
-        })
-        .catch(error => console.log(error))
+      if (formValues.password !== formValues.confirm_password) {
+        console.log('passwords dont match cuh')
+      } else {
+          fetch(`${process.env.REACT_APP_BASE_SERVER_URL}/update-profile`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              ufname: `${firstName}`,
+              ulname:  `${lastName}`,
+              passwrd: `${password}`,
+              uphnum: `${phoneNumber}`,
+              ubio: `${bio}`,
+              ustreet: `${street}`,
+              ucity: `${city}`,
+              ustate: `${state}`,
+              uzip: `${zip}`
+            })
+          })
+            .then(res => {
+              if (res.status !== 200) {
+                console.error("Error fetching profile details")
+              }
+              else {
+                return res.json()
+              }
+            })
+            .then(json => {
+              console.log("PROFILE: ", json);
+              setShowPopup(false)
+            })
+            .catch(error => console.log(error))
 
-      event.preventDefault(); 
-    }
+            setShowSnackbar(true)
+  
+            setTimeout(() => {
+              setShowSnackbar(false)
+            }, 3000)
+          }
+          event.preventDefault();
+        }
 
   // Grab User's Info from Database
   useEffect (() => {
@@ -188,7 +223,13 @@ const Profile = () => {
 
   return (
     <div>
-
+      <Snackbar 
+            open={showSnackbar}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            autoHideDuration={3000}
+        >
+            <Alert severity='success'>Account Successfully Updated</Alert>
+      </Snackbar>
       {showListings ? (
         <div>
           <h2 style={
@@ -279,6 +320,62 @@ const Profile = () => {
                     <tr>
                       <td>
                       <RegisterTextField name="zip" value={formValues.zip} onChange={handleInputChange} id="zip" label="Zip Code" variant="outlined"  />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                      <RegisterTextField 
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                          )
+                        }} 
+                      id="password" 
+                      name="password" 
+                      onChange={handleInputChange} 
+                      value={formValues.password} 
+                      label="Password" 
+                      type={showPassword ? 'text' : 'password'}
+                      variant="outlined" 
+                      error={formValues.password !== formValues.confirm_password ? true : false} 
+                      helperText={formValues.password !== formValues.confirm_password ? `Passwords Do Not Match` : ""}/>
+                      </td>
+                    </tr> 
+                    <tr>
+                      <td>
+                      <RegisterTextField
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                          )
+                        }}  
+                      id="confirm_password" 
+                      name="confirm_password" 
+                      onChange={handleInputChange} 
+                      value={formValues.confirm_password} 
+                      label="Confirm Password" 
+                      type={showPassword ? 'text' : 'password'}
+                      variant="outlined" 
+                      error={formValues.password !== formValues.confirm_password ? true : false} 
+                      helperText={formValues.password !== formValues.confirm_password ? `Passwords Do Not Match` : ""}/>
                       </td>
                     </tr>
                   </tbody>
